@@ -1,0 +1,6 @@
+[
+  {"expr": "String((() => { const rows=[...document.querySelectorAll('.tree .row')]; const folds=[...document.querySelectorAll('.tree .fold')]; return JSON.stringify({rows:rows.length,folds:folds.length,foldTexts:folds.map(f=>f.innerText)}); })())"},
+  {"expr": "(() => { let n=0; [...document.querySelectorAll('.tree .fold')].forEach(f => { if(f.innerText==='▸'){ f.click(); n++; } }); return '展开 ' + n + ' 个折叠'; })()", "wait": 1800},
+  {"expr": "String((() => { const sl=document.querySelector('.pane.left .scroll'); const r=sl.getBoundingClientRect(); return JSON.stringify({label:'组织树',h:Math.round(r.height),sh:sl.scrollHeight,ch:sl.clientHeight,ofy:getComputedStyle(sl).overflowY,visibleRows:document.querySelectorAll('.tree .row').length}); })())", "wait": 400},
+  {"expr": "String((() => { const sl=document.querySelector('.pane.left .scroll'); sl.scrollTop=sl.scrollHeight; return JSON.stringify({scrolledTo:Math.round(sl.scrollTop),atBottom:sl.scrollTop>=sl.scrollHeight-sl.clientHeight-2}); })())"}
+]

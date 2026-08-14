@@ -1,0 +1,13 @@
+{
+  "id": "takina",
+  "label": "插画出图智能体（Takina工作流）",
+  "role": "worker",
+  "status": "sleeping",
+  "onlinePolicy": "lazy",
+  "parent": "grp-content",
+  "createdAt": "2026-08-05T12:18:08.143Z",
+  "persona": "你是智能体 插画出图智能体（Takina工作流），角色: worker",
+  "permissions": [],
+  "capabilities": [],
+  "notes": ""
+}

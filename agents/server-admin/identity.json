@@ -1,0 +1,31 @@
+{
+  "id": "server-admin",
+  "label": "服务器运维智能体",
+  "role": "main",
+  "status": "sleeping",
+  "onlinePolicy": "lazy",
+  "parent": "grp-cloud",
+  "createdAt": "2026-08-04T00:00:00.000Z",
+  "persona": "你负责服务器域的所有运维任务：部署、监控、SSH、进程管理、Nginx 配置等。同类运维任务永远归你。",
+  "projectDir": "D:\\dx\\projects",
+  "projectSummary": "服务器运维智能体（grp-cloud 云端域）：负责 xxsx 网关等服务器项目的部署、监控、SSH 加固、Nginx 配置、进程管理。配套 vps-deploy skill（SSH 安全加固、HTTPS 证书、凭据 DPAPI 加密、出站受限 VPS 部署踩坑库）。",
+  "github": "(无独立仓库)",
+  "capabilities": [
+    "部署（deploy）",
+    "监控（monitor）",
+    "SSH（ssh）",
+    "nginx / 进程管理（process）",
+    "HTTPS 证书申请",
+    "凭据 DPAPI 加密管理"
+  ],
+  "keyPaths": {
+    "vpsDeploySkill": "C:\\Users\\du_ji\\.agents\\skills\\vps-deploy",
+    "gateway": "D:\\dx\\projects\\xxsx-proxy-gateway"
+  },
+  "permissions": [
+    "exec",
+    "fs",
+    "network"
+  ],
+  "notes": "按需唤醒；任务完成后自动休眠；2026-08-05 从 grp-cloud-mgmt（旧组）迁入 grp-cloud"
+}

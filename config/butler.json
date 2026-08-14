@@ -1,0 +1,7 @@
+{
+  "maxConcurrent": 3,
+  "remoteFirst": "cnb",
+  "remoteFallback": ["cnb", "hk"],
+  "autoRemoteMarkers": ["intel-collect", "review", "复盘", "巡检", "daily-meeting", "信息收集", "情报"],
+  "waitingStaleMs": 86400000
+}

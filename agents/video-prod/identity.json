@@ -1,0 +1,26 @@
+{
+  "id": "video-prod",
+  "label": "视频制作智能体",
+  "role": "video",
+  "status": "sleeping",
+  "onlinePolicy": "lazy",
+  "parent": "grp-media",
+  "createdAt": "2026-08-05T08:43:50.493Z",
+  "persona": "你是视频制作智能体——负责 AI 视频生成管线（从 agnes/video-project 拆出）。",
+  "projectDir": "C:\\Users\\du_ji\\pi_workspace\\org\\agents\\video-prod\\project",
+  "projectSummary": "AI 视频生成管线（agnes/video-project 拆出）：pipeline.js 主生成脚本、generate_videos.py / extend_video.py、SCRIPT.md（《再看，就把你瞪死》预告片 5 场景剧本，~3 分钟）、keyframes/ 关键帧、videos/ 输出、final/ 成品。类型：文生视频（关键帧→视频），配合全局 seedance-video-gen / video-prompt-expert skills。",
+  "github": "(无独立仓库)",
+  "capabilities": [
+    "AI 视频生成管线（关键帧→视频）",
+    "视频脚本/剧本编写（分场景：视觉+关键帧提示词）",
+    "视频延长/拼接（extend_video.py）",
+    "文生视频 API 调用（Seedance 2.0）",
+    "视频提示词专家级编写（video-prompt-expert skill）"
+  ],
+  "keyPaths": {
+    "project": "C:\\Users\\du_ji\\pi_workspace\\org\\agents\\video-prod\\project",
+    "script": "C:\\Users\\du_ji\\pi_workspace\\org\\agents\\video-prod\\project\\SCRIPT.md"
+  },
+  "permissions": ["exec", "fs", "network"],
+  "notes": "从 agnes/video-project 拆出（2026-08-05）；原路径 D:\\dx\\projects\\agnes\\video-project 将建 junction 保留"
+}

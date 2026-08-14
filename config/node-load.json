@@ -1,0 +1,9 @@
+{
+  "enabled": true,
+  "highThreshold": 70,
+  "criticalThreshold": 85,
+  "memHighPct": 90,
+  "cacheTtlMs": 60000,
+  "sshTimeoutMs": 10000,
+  "cnbSpaces": ["cnb1", "cnb2", "cnb3"]
+}

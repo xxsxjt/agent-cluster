@@ -1,0 +1,257 @@
+{
+  "version": 1,
+  "updatedAt": "2026-08-10T22:25:00.000Z",
+  "source": "knowledge/conventions.md「智能体任务冲突与资源锁」(2026-08-06 聊天室模型被互踩教训)",
+  "note": "共享资源锁/owner 登记表。任何共享资源必须有明确 owner；任务书须标注 writes:/reads:；分身/butler 改共享资源前先查本表是否有任务在写。补 2026-08-10 promise-audit P0 欠账。机制 lib/resource-lock.js（派发期校验 preDispatch/claim/release + 显式锁 lock/unlock/read）。learning-officer 建表，night-worker 补机制与独有资源。",
+  "lockRules": {
+    "1_ownership": "共享资源必须有明确 owner，记录于本表 resources 条目",
+    "2_task_declare": "任务文件标注 writes:/reads: 涉及哪些共享资源；butler 派发前比对运行中任务的 writes，有交集则串行或上报分身，不硬派",
+    "3_twin_check_before_change": "分身改共享资源前先问 butler 该资源有无任务正在写",
+    "4_subtask_scope": "子任务只改任务文件写明的；要动全局/共享配置上报 butler/分身，不擅自改",
+    "5_no_parallel_write": "并行任务禁止写同一资源；确需并行必须走 butler 协调或拆成串行"
+  },
+  "resources": {
+    "chatroom.model": {
+      "desc": "new-api 聊天室默认话题模型（options.ChatRoomTopicAgents 配置源，改源头才持久，勿改 DB 派生表）",
+      "owner": "twin",
+      "ownerRole": "决策方",
+      "type": "config",
+      "path": "new-api options 表 / setting/chatroom/setting.go 默认值",
+      "conflict": "单写",
+      "lastIncident": "2026-08-06 聊天室模型被互踩（分身在 qwen 任务活着时改，被收尾改回）",
+      "lock": {
+        "holder": null,
+        "at": null,
+        "until": null,
+        "purpose": null
+      }
+    },
+    "chatroom.channels": {
+      "desc": "聊天室频道配置",
+      "owner": "night-worker",
+      "ownerRole": "维护方",
+      "type": "config",
+      "path": "new-api 频道配置",
+      "conflict": "单写",
+      "lastIncident": "2026-08-06 qwen 任务是加频道，收尾却重置了全局模型",
+      "lock": {
+        "holder": null,
+        "at": null,
+        "until": null,
+        "purpose": null
+      }
+    },
+    "org.json": {
+      "desc": "组织树注册表（agents/groups 结构）",
+      "owner": "twin",
+      "ownerRole": "决策方",
+      "type": "file",
+      "path": "org/org.json（经 lib/registry.js save 写）",
+      "conflict": "单写",
+      "guard": "读写走 lib/registry.js，勿直接多进程并发覆盖",
+      "lock": {
+        "holder": null,
+        "at": null,
+        "until": null,
+        "purpose": null
+      }
+    },
+    "knowledge.conventions": {
+      "desc": "全局约定（conventions.md）",
+      "owner": "twin",
+      "ownerRole": "进化方",
+      "type": "file",
+      "path": "org/knowledge/conventions.md",
+      "conflict": "多读单写",
+      "lock": {
+        "holder": null,
+        "at": null,
+        "until": null,
+        "purpose": null
+      }
+    },
+    "org.inbox": {
+      "desc": "任务投递目录（inbox/*.md + .DONE）",
+      "owner": "butler",
+      "ownerRole": "调度方",
+      "type": "dir",
+      "path": "org/inbox/",
+      "conflict": "多写少读（各 agent 写 .DONE，butler 读）",
+      "lock": {
+        "holder": null,
+        "at": null,
+        "until": null,
+        "purpose": null
+      }
+    },
+    "config.duty-inspector": {
+      "desc": "分身职责巡检规则",
+      "owner": "twin",
+      "ownerRole": "维护方",
+      "type": "file",
+      "path": "org/config/duty-inspector.json",
+      "conflict": "单写",
+      "lock": {
+        "holder": null,
+        "at": null,
+        "until": null,
+        "purpose": null
+      }
+    },
+    "config.auto-schedule": {
+      "desc": "职责定时调度表",
+      "owner": "twin",
+      "ownerRole": "维护方",
+      "type": "file",
+      "path": "org/config/auto-schedule.json",
+      "conflict": "单写",
+      "lock": {
+        "holder": null,
+        "at": null,
+        "until": null,
+        "purpose": null
+      }
+    },
+    "config.daily-meeting": {
+      "desc": "每日例会调度配置",
+      "owner": "twin",
+      "ownerRole": "维护方",
+      "type": "file",
+      "path": "org/config/daily-meeting.json",
+      "conflict": "单写",
+      "lock": {
+        "holder": null,
+        "at": null,
+        "until": null,
+        "purpose": null
+      }
+    },
+    "config.agent-backlog": {
+      "desc": "业务智能体待办表",
+      "owner": "twin",
+      "ownerRole": "维护方",
+      "type": "file",
+      "path": "org/config/agent-backlog.json",
+      "conflict": "单写",
+      "lock": {
+        "holder": null,
+        "at": null,
+        "until": null,
+        "purpose": null
+      }
+    },
+    "config.auto-optimize": {
+      "desc": "异常自动优化闭环配置",
+      "owner": "night-worker",
+      "ownerRole": "维护方",
+      "type": "file",
+      "path": "org/config/auto-optimize.json",
+      "conflict": "单写",
+      "lock": {
+        "holder": null,
+        "at": null,
+        "until": null,
+        "purpose": null
+      }
+    },
+    "knowledge.corrections": {
+      "desc": "用户纠正记录",
+      "owner": "twin",
+      "ownerRole": "记录方",
+      "type": "file",
+      "path": "org/knowledge/corrections.md",
+      "conflict": "多写（各 agent 可补录，twin 汇总）",
+      "lock": {
+        "holder": null,
+        "at": null,
+        "until": null,
+        "purpose": null
+      }
+    },
+    "wechat.send": {
+      "desc": "微信发送通道（wechat-automation 发送层 UI 会话，避免多任务并发发消息互踩）",
+      "owner": "workspace",
+      "ownerRole": "维护方",
+      "type": "service",
+      "path": "wechat-automation 发送层",
+      "conflict": "单写",
+      "lock": {
+        "holder": null,
+        "at": null,
+        "until": null,
+        "purpose": null
+      }
+    },
+    "server.services": {
+      "desc": "HK 服务器核心服务/守护进程（重启/改配置前加锁，避免多个 agent 同时动服务）",
+      "owner": "server-admin",
+      "ownerRole": "运维方",
+      "type": "service",
+      "path": "HK 服务器服务",
+      "conflict": "单写",
+      "lock": {
+        "holder": null,
+        "at": null,
+        "until": null,
+        "purpose": null
+      }
+    },
+    "xxsx.gateway": {
+      "desc": "xxsx 自建中转网关（配置/渠道切换前加锁，避免并发换渠道）",
+      "owner": "xxsx-gateway",
+      "ownerRole": "运维方",
+      "type": "service",
+      "path": "xxsx 中转网关",
+      "conflict": "单写",
+      "lock": {
+        "holder": null,
+        "at": null,
+        "until": null,
+        "purpose": null
+      }
+    },
+    "secrets": {
+      "desc": "密钥库 ~/.qoder/apis + config/secrets-index.json（读写前加锁，敏感资源）",
+      "owner": "workspace",
+      "ownerRole": "维护方",
+      "type": "file",
+      "path": "~/.qoder/apis/ + org/config/secrets-index.json",
+      "conflict": "单写",
+      "guard": "隐私铁律：敏感数据仅可信渠道处理",
+      "lock": {
+        "holder": null,
+        "at": null,
+        "until": null,
+        "purpose": null
+      }
+    },
+    "cnb.nodes": {
+      "desc": "CNB 云开发节点空间（跨平台构建前加锁，避免多任务抢占同一空间）",
+      "owner": "cnb-dev",
+      "ownerRole": "维护方",
+      "type": "service",
+      "path": "CNB 云空间 1/2/3",
+      "conflict": "单写",
+      "lock": {
+        "holder": null,
+        "at": null,
+        "until": null,
+        "purpose": null
+      }
+    },
+    "AGENTS.md.pi": {
+      "desc": "pi 全局指令 C:\\Users\\du_ji\\.pi\\agent\\AGENTS.md（改指令前加锁）",
+      "owner": "night-worker",
+      "ownerRole": "维护方",
+      "type": "file",
+      "path": "~/.pi/agent/AGENTS.md",
+      "conflict": "单写",
+      "lock": {
+        "holder": null,
+        "at": null,
+        "until": null,
+        "purpose": null
+      }
+    }
+  }
+}

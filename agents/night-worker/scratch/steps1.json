@@ -1,0 +1,5 @@
+[
+  {"expr": "(() => { const rows=[...document.querySelectorAll('.row')]; const t=rows.find(r=>(r.querySelector('.lab')||{}).innerText&&r.querySelector('.lab').innerText.includes('夜间')); if(!t)return '未找到'; t.click(); return 'clicked 夜间重活执行者'; })()", "wait": 3000},
+  {"expr": "String((() => { const so=document.querySelector('.pane.mid .scroll.out'); if(!so)return '.scroll.out 不存在'; const vis=so.offsetParent!==null; const rect=so.getBoundingClientRect(); const r={subVisible:vis,h:Math.round(rect.height),sh:so.scrollHeight,ch:so.clientHeight,ofy:getComputedStyle(so).overflowY,events:document.querySelectorAll('.pane.mid .ev').length}; if(vis){so.scrollTop=so.scrollHeight;} return JSON.stringify(r); })())", "wait": 500},
+  {"expr": "String((() => { const so=document.querySelector('.pane.mid .scroll.out'); if(!so)return 'missing'; return JSON.stringify({scrolledTo:Math.round(so.scrollTop),atBottom:so.scrollTop>=so.scrollHeight-so.clientHeight-2}); })())"}
+]

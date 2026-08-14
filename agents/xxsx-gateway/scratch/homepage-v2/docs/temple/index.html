@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="虚无圣殿 Temple of Nihility：Minecraft NeoForge 模组文档——世界观、四系设计、功能与版本。登录后可见。">
+  <title>虚无圣殿 · Temple of Nihility</title>
+  <link rel="stylesheet" href="/assets/css/site.css?v=20260812-org">
+  <style>
+    .doc-hero { padding: 48px 0 28px; }
+    .doc-hero h1 { font-size: clamp(24px, 3.2vw, 32px); margin: 0 0 10px; }
+    .doc-hero p { color: #5b6b85; max-width: 640px; line-height: 1.75; margin: 0; }
+    .doc-body { max-width: 860px; }
+    .doc-section { margin-bottom: 34px; }
+    .doc-section h2 { font-size: 19px; margin: 0 0 12px; padding-bottom: 8px; border-bottom: 1px solid #eef1f6; }
+    .doc-section h3 { font-size: 15px; margin: 18px 0 8px; }
+    .doc-section p, .doc-section li { font-size: 14px; line-height: 1.8; color: #33415c; }
+    .doc-section ul { padding-left: 20px; margin: 8px 0; }
+    .doc-table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 13.5px; }
+    .doc-table th, .doc-table td { border: 1px solid #e3e8f0; padding: 8px 12px; text-align: left; }
+    .doc-table th { background: #f4f7fb; color: #33415c; }
+    .doc-table td { color: #33415c; }
+    .doc-tag { display: inline-block; font-size: 12px; padding: 2px 10px; border-radius: 999px; background: #eef3fb; color: #1f6feb; margin-right: 6px; }
+    .breadcrumbs { margin-bottom: 20px; font-size: 13px; color: #8b98ad; }
+    .breadcrumbs a { color: #3b82f6; text-decoration: none; }
+    .temple-hero { background: linear-gradient(140deg, #0d1020 0%, #161233 60%, #0d1020 100%); color: #ece8f7; }
+    .temple-hero .doc-body h1 { color: #d9ccff; }
+    .temple-hero .doc-body p { color: #a99fce; }
+    .temple-hero .eyebrow { color: #9d8fe8; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <header class="topbar">
+    <nav class="container nav" aria-label="主导航">
+      <a class="brand" href="https://xxssxx.top/"><span class="brand-mark">XX</span><span class="brand-copy">xxsx<small>虚无圣殿</small></span></a>
+      <button class="nav-toggle" type="button" aria-label="打开导航" aria-expanded="false"><i data-lucide="menu"></i></button>
+      <div class="nav-links">
+        <a href="https://xxssxx.top/">组织首页</a>
+        <a href="/docs/">文档首页</a>
+        <a href="/docs/xxsx-api/">xxsx-api</a>
+        <a href="/docs/share/">分享内容</a>
+        <a href="/docs/temple/" aria-current="page">虚无圣殿</a>
+        <button class="button nav-login-btn" id="nav-login-btn" type="button" aria-haspopup="dialog">登录 / 注册</button>
+        <span class="user-badge" id="nav-user-badge" hidden>
+          <i data-lucide="circle-user-round"></i>
+          <span id="nav-username"></span>
+          <button class="btn-ghost" id="nav-logout" type="button">退出</button>
+        </span>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="doc-hero temple-hero">
+      <div class="container doc-body">
+        <p class="breadcrumbs" style="color:#8a82b8"><a href="/docs/" style="color:#9d8fe8">文档</a> / <a href="/docs/temple/" style="color:#9d8fe8">虚无圣殿</a></p>
+        <p class="eyebrow">TEMPLE OF NIHILITY</p>
+        <h1>虚无圣殿 · Temple of Nihility</h1>
+        <p>Minecraft 26.2 / NeoForge 26.2.0.7-beta 内容扩展模组。虚无、虚空、混沌、深渊四系设计；圣殿建筑、武器装备、虚无宝库与归零祭坛。<strong>开发中测试版</strong>，不建议直接用于长期主存档。</p>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="container doc-body">
+        <div class="doc-section">
+          <h2>世界观与四系设计</h2>
+          <p>模组围绕四种概念体系展开，各自有明确的视觉与功能边界：</p>
+          <ul>
+            <li><strong>虚无</strong>：本质与归零——空寂石、虚无残片、归尘、虚无核心</li>
+            <li><strong>虚空</strong>：空间与传输——虚空宝库、虚空终端、常加载区块</li>
+            <li><strong>混沌</strong>：仪式与进阶——混沌共鸣核、归零祭坛</li>
+            <li><strong>深渊</strong>：生物与交易——深渊生物交易系统</li>
+          </ul>
+          <p><span class="doc-tag">虚无圣典</span><span class="doc-tag">四系材料</span><span class="doc-tag">圣殿建筑</span><span class="doc-tag">武器工具</span><span class="doc-tag">装备饰品</span><span class="doc-tag">虚无宝库</span><span class="doc-tag">归零祭坛</span><span class="doc-tag">JEI 联动</span></p>
+        </div>
+
+        <div class="doc-section">
+          <h2>核心功能</h2>
+          <ul>
+            <li><strong>虚无圣典</strong>：原版书本界面的游戏内指南，介绍圣殿、祭坛图、生物、宝库与游玩流程。</li>
+            <li><strong>四系材料</strong>：虚无残片、归尘、空相结晶、圣殿符文、虚无核心、混沌共鸣核。</li>
+            <li><strong>圣殿建筑</strong>：空寂石系方块、圣殿符文砖、虚空灯、虚空玻璃、归零祭坛。</li>
+            <li><strong>武器工具</strong>：匕首「缺位步」、剑「归零斩」、巨刃「断界式」，以及镐、斧、铲、锄。</li>
+            <li><strong>装备</strong>：虚无头盔、胸甲、护腿、靴子；Curios 饰品（戒指、项链、腰带、披风、手甲、时沙计、魂锚等）。</li>
+            <li><strong>虚无宝库</strong>：多方块仓储网络，每库 243 格；相邻同主宝库自动合并，带访问保护。</li>
+            <li><strong>虚无终端</strong>：随身饰品栏开启，默认 <code>O</code> 键打开已绑定的宝库网络；支持常加载（默认每网络 9 区块）。</li>
+            <li><strong>归零祭坛</strong>：多方块仪式核心，按结构等级把材料进阶为结晶、符文、封印和核心。</li>
+            <li><strong>主动道具</strong>：灯核、复苏宝珠、遁影符、净化铃、洞察镜、屏障核、相位羽、引力符、战号。</li>
+            <li><strong>虚无状态</strong>：自定义「遁入虚无 / 融于虚无 / 隐入虚无」，不再使用原版隐身。</li>
+          </ul>
+        </div>
+
+        <div class="doc-section">
+          <h2>玩家入口</h2>
+          <ul>
+            <li>一本书 + 空寂石 / 虚无残片 / 归尘任一种 → 合成《虚无圣典》。</li>
+            <li>默认 <code>O</code> 键打开携带或佩戴的已绑定虚空终端。</li>
+            <li>正常玩法不需要聊天命令；<code>/temple</code> 仅保留给管理员调试生成结构。</li>
+            <li>归墟匕首右键：缺位步；归零之刃按住蓄力：归零斩；断界巨刃右键：三段断界式。</li>
+            <li>手持虚空终端潜行右键虚空宝库：绑定终端；终端界面可切换整个宝库网络常加载。</li>
+            <li>归零祭坛：I 级（四向符文砖）、II 级（四角虚空水晶块）、III 级（圣殿柱 + 錾制空寂石）。</li>
+          </ul>
+        </div>
+
+        <div class="doc-section" id="versions">
+          <h2>版本</h2>
+          <table class="doc-table">
+            <tr><th>Minecraft</th><th>Loader</th><th>Loader 版本</th><th>Mod 版本</th><th>状态</th></tr>
+            <tr><td>26.2</td><td>NeoForge</td><td>26.2.0.7-beta</td><td>1.0.0-beta.3</td><td>开发中测试版</td></tr>
+          </table>
+          <p>构建需要 JDK 25，使用 ModDevGradle。</p>
+        </div>
+
+        <div class="doc-section" id="roadmap">
+          <h2>开发路线</h2>
+          <ul>
+            <li>四系设计准则：虚无、虚空、混沌、深渊的概念、视觉和功能边界。</li>
+            <li>开发路线图：长期版本计划、内容矩阵和发布门槛。</li>
+            <li>功能质量契约：按六个可玩纵向闭环定义权威状态、玩家表面与完成证据。</li>
+            <li>自定义动作系统：武器技、生物招式、仪式动作和同步/性能规则。</li>
+            <li>传输系统：定向路由、过滤、红石、吞吐、迁移和验证边界。</li>
+            <li>探索与居民：神龛代表结构、和平开局、居民状态和行为边界。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="container footer-row"><span>© <span data-year></span> xxsx · 虚无圣殿 Temple of Nihility</span><span>模组内容持续开发中。</span><span><a href="https://xxssxx.top/legal/terms.html">用户协议</a></span></div></footer>
+
+  <!-- ── Auth modal ──────────────────────────────────────────────────────── -->
+  <dialog id="auth-modal" aria-label="登录 / 注册">
+    <div class="auth-inner">
+      <button class="auth-close" id="auth-modal-close" type="button" aria-label="关闭">×</button>
+      <div class="auth-brand"><span class="brand-mark">XX</span><span>xxsx 账号</span></div>
+      <div class="auth-tabs" role="tablist" aria-label="登录或注册">
+        <button class="auth-tab active" role="tab" type="button" data-tab="login" aria-selected="true">登录</button>
+        <button class="auth-tab" role="tab" type="button" data-tab="register" aria-selected="false">注册</button>
+      </div>
+      <form class="auth-panel" id="login-panel" data-panel="login">
+        <p class="auth-error" id="login-error" hidden></p>
+        <label class="auth-field"><span>用户名</span><input type="text" name="username" autocomplete="username" required placeholder="用户名"></label>
+        <label class="auth-field"><span>密码</span><input type="password" name="password" autocomplete="current-password" required placeholder="密码"></label>
+        <div id="ts-login" class="ts-widget"></div>
+        <button type="submit" class="button block" id="login-submit">登录</button>
+      </form>
+      <form class="auth-panel" id="register-panel" data-panel="register" hidden>
+        <p class="auth-error" id="register-error" hidden></p>
+        <label class="auth-field"><span>用户名</span><input type="text" name="username" autocomplete="username" required placeholder="用户名（至少3位）"></label>
+        <label class="auth-field"><span>密码</span><input type="password" name="password" autocomplete="new-password" required placeholder="密码（至少8位）"></label>
+        <div id="ts-register" class="ts-widget"></div>
+        <button type="submit" class="button block" id="register-submit">注册并登录</button>
+      </form>
+    </div>
+  </dialog>
+  <script src="/assets/js/auth.js?v=20260812-org"></script>
+  <script src="/assets/js/lucide-minimal.js"></script>
+  <script src="/assets/js/common.js?v=20260715-2"></script>
+</body>
+</html>

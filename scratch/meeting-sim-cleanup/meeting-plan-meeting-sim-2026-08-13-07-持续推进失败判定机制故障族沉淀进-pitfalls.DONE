@@ -1,0 +1,1 @@
+DONE: 持续推进失败判定机制故障族沉淀进 pitfalls——已合入 08-12 两增量：①调度层兜底 settlePending 落地标注；②新增独立故障族「执行载体任务范式识别(CNB 桥伪失败)」；产出 artifacts/meeting-plan-meeting-sim-2026-08-13-07-持续推进失败判定机制故障族沉淀进-pitfalls.md，改前已备份 knowledge/pitfalls.md.bak-20260813-meeting-plan-07

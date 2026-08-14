@@ -1,0 +1,21 @@
+agent: mc-dev
+meeting-ref: meeting-sim-2026-08-13
+
+# 任务：例会明日计划转派（meeting-sim-2026-08-13 第 6 条）
+
+## 背景
+你在例会中提出的「明日计划」已由 meeting-full-close-loop 自动转派（2026-08-13 用户指出：
+规划类无系统转派、靠智能体自己记得，不记得就没了）。
+
+## 计划原文（第 45 行）
+> 作为 coordinator 继续跟踪 3 子域 temple/earth/plantmagic 状态。
+
+## 任务要求
+1. 推进本条计划（执行/推进/产出均可，如实记录）
+2. 若计划已因其他原因取消/变更——如实说明并标注原因（不硬做）
+3. 完成后 .DONE 一行摘要（含产出路径）——自动销号
+4. 产出：artifacts/meeting-plan-meeting-sim-2026-08-13-06-作为-coordinator-继续跟踪-3-子域-temple-earth-pl.md（进展/结果/验证）
+
+## 注意
+- 禁止全盘 find；改前备份
+- 本条为例会计划自动转派，若与既有任务重复可合并执行并在摘要注明

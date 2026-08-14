@@ -1,0 +1,55 @@
+{
+  "_comment": "双集群（本机 Windows ↔ HK Linux）双向同步配置。dual-sync.js 在本机运行，单向可达 HK（ssh/scp），双向文件由本机统一收敛。",
+  "enabled": true,
+  "syncIntervalMs": 900000,
+  "diffEps": 60,
+  "hk": {
+    "host": "103.100.159.111",
+    "port": "43891",
+    "user": "root",
+    "key": "~/.ssh/id_ed25519_xxsx_hk",
+    "org": "/data/agent-cluster"
+  },
+  "_conflict": "latest=按 mtime 取较新一方；merge=行/字段合并后双向写回（幂等收敛）；skip=不同步（运行中状态/PID/源任务/私有目录）",
+  "latestFiles": [
+    "org.json"
+  ],
+  "latestDirs": [
+    "knowledge"
+  ],
+  "latestGlobs": [
+    "agents/*/identity.json",
+    "agents/*/AGENTS.md"
+  ],
+  "mergeGlobs": [
+    "agents/*/activity.log"
+  ],
+  "inboxDone": true,
+  "_skip_dirs": "整目录不同步",
+  "skipDirs": [
+    "inbox/interject",
+    "inbox/decisions",
+    "inbox/archive",
+    "archived",
+    "logs",
+    "discussions",
+    "web",
+    "lib",
+    "scripts",
+    "config",
+    "test"
+  ],
+  "_skip_globs": "glob 命中即不同步（运行中状态 / 源任务文件 / 进程表 / 私密）",
+  "skipGlobs": [
+    "inbox/*.md",
+    "inbox/*.PID",
+    "inbox/*.STOPPED",
+    "inbox/*.ack",
+    "inbox/*.lock",
+    "*.pid",
+    "logs/**",
+    "agents/*/tasks/**",
+    "agents/hk/**",
+    "agents/hermes/**"
+  ]
+}

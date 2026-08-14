@@ -1,0 +1,46 @@
+{
+  "generated": "2026-08-09T07:39:00Z",
+  "videos": {
+    "scene1_awakening": {
+      "id": "scene1_awakening",
+      "title": "瑙夐啋",
+      "videoUrl": "https://platform-outputs.agnes-ai.space/videos/agnes-video-v2.0/2026/06/26/video_2279b687f14204947f673bd2921fc56bddf2ec3739d9e300.mp4",
+      "seconds": "5.0",
+      "size": "1088x832"
+    },
+    "scene2_fortress": {
+      "id": "scene2_fortress",
+      "title": "铁壁城",
+      "file": "scene2_fortress.mp4",
+      "seconds": "6.0",
+      "size": "720p 16:9",
+      "generatedAt": "2026-08-09",
+      "engine": "seedance-2.0-redfox"
+    },
+    "scene3_invasion": {
+      "id": "scene3_invasion",
+      "title": "幽界入侵",
+      "file": "scene3_invasion.mp4",
+      "seconds": "6.0",
+      "size": "720p 16:9",
+      "generatedAt": "2026-08-09",
+      "engine": "seedance-2.0-redfox"
+    }
+  },
+  "final": {
+    "id": "final_trailer",
+    "title": "预告片成片",
+    "file": "final/final_trailer.mp4",
+    "seconds": "17.13",
+    "size": "1280x720",
+    "fps": 24,
+    "engine": "local-ffmpeg-concat",
+    "generatedAt": "2026-08-10",
+    "source": [
+      "scene1_720p",
+      "scene2_fortress",
+      "scene3_invasion"
+    ],
+    "note": "extend_video.py chain 拼接+尾帧关键帧对齐"
+  }
+}

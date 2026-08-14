@@ -1,0 +1,23 @@
+{
+  "enabled": true,
+  "optimizeThreshold": 2,
+  "channelCoolThreshold": 2,
+  "fallbackChains": {
+    "xxsx-gateway": ["workspace", "night-worker"],
+    "server-admin": ["cnb-dev", "night-worker"],
+    "cnb-dev": ["workspace", "night-worker"],
+    "mc-dev": ["night-worker"],
+    "video-prod": ["copywriting", "night-worker"],
+    "copywriting": ["novel", "night-worker"],
+    "novel": ["copywriting", "night-worker"],
+    "takina": ["night-worker"],
+    "night-worker": ["workspace"],
+    "workspace": ["night-worker"]
+  },
+  "envSelfCheck": {
+    "sessionsMaxMb": 40,
+    "sessionRetainDays": 30
+  },
+  "checkIntervalMin": 5,
+  "maxOptimizePerScan": 3
+}

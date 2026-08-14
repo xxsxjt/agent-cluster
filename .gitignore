@@ -1,0 +1,54 @@
+# 隐私/密钥——绝不提交
+secrets/
+*.clixml
+*.key
+*.pem
+*wechat*.json
+*my_msgs*.json
+*my_wechat*.json
+agents/*/chat/
+agents/*/sessions/
+agents/twin/
+logs/
+inbox/*.DONE
+inbox/*.PID
+inbox/*.misjudged*
+plans/
+sleep-mode.flag
+*.local
+agents/coo/nul
+**/nul
+# 敏感补充（2026-08-10 审计发现）
+agents/*/chat-sessions/
+agents/ds-bridge/project/
+config/secrets-index.json
+inbox/archive/
+**/node_modules/
+# 真实密钥/凭据——绝不上 GitHub（2026-08-11 github-host 审计重写历史清除）
+config/cluster-chat-token.json
+web/remote-config.json
+scratch/cnb-auth.json
+scratch/cnb-models.json
+agents/uumit-ops/memory/uumit-auth.json
+agents/xxsx-gateway/memory/REQUIREMENTS.md
+agents/workspace/scripts/gen_app_icon.sh
+agents/workspace/scripts/gen_icons.sh
+agents/workspace/scripts/gen_icons2.sh
+agents/workspace/scripts/gen_icons_v2.sh
+agents/workspace/scripts/gen_star.sh
+# 会话归档——绝不入库（2026-08-11 审计：曾有 35 个 jsonl 泄漏入库；2026-08-12 repo-plan 补：archived-sessions 下划线命名漏网 138 个）
+agents/*/sessions-archive*/
+agents/*/chat-archive*/
+agents/*/archived-sessions/
+# 运行态 pid——不入库
+*.pid
+# CNB 保活 pid（运行态，不入库）
+cnb-keepalive-local.pid
+# cnb 本地测试临时文件
+scratch/cnb-*.md
+inbox/cnb-e2e-build-test.DONE
+inbox/cnb-build-test.DONE
+inbox/cnb-test-space3.DONE
+logs/cnb-keepalive.log
+logs/cnb-ctl.log
+logs/git-sync.log

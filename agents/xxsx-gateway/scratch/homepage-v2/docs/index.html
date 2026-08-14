@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="xxsx 文档站：xxsx-api 接口与运维文档、分享内容资料库、虚无圣殿模组文档。登录后可见。">
+  <title>文档 · xxsx</title>
+  <link rel="stylesheet" href="/assets/css/site.css?v=20260812-org">
+  <style>
+    .doc-hero { padding: 56px 0 40px; }
+    .doc-hero h1 { font-size: clamp(26px, 3.6vw, 36px); margin: 0 0 12px; }
+    .doc-hero p { color: #5b6b85; max-width: 620px; line-height: 1.75; margin: 0; }
+    .doc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
+    .doc-card {
+      border: 1px solid #e3e8f0; border-radius: 12px; padding: 22px 22px 18px;
+      display: flex; flex-direction: column; gap: 8px; text-decoration: none;
+      background: #fff; transition: border-color .15s, box-shadow .15s;
+    }
+    .doc-card:hover { border-color: #58a6ff; box-shadow: 0 6px 22px rgba(31,111,235,.08); }
+    .doc-card h2 { margin: 0; font-size: 16px; color: #16233c; }
+    .doc-card p { margin: 0; font-size: 13.5px; color: #5b6b85; line-height: 1.65; }
+    .doc-card .doc-meta { font-size: 12px; color: #8b98ad; margin-top: 6px; }
+    .doc-card .doc-meta .lock { color: #d97706; }
+    .breadcrumbs { margin-bottom: 26px; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <header class="topbar">
+    <nav class="container nav" aria-label="主导航">
+      <a class="brand" href="https://xxssxx.top/"><span class="brand-mark">XX</span><span class="brand-copy">xxsx<small>文档站</small></span></a>
+      <button class="nav-toggle" type="button" aria-label="打开导航" aria-expanded="false"><i data-lucide="menu"></i></button>
+      <div class="nav-links">
+        <a href="https://xxssxx.top/">组织首页</a>
+        <a href="/docs/" aria-current="page">文档首页</a>
+        <a href="/docs/xxsx-api/">xxsx-api</a>
+        <a href="/docs/share/">分享内容</a>
+        <a href="/docs/temple/">虚无圣殿</a>
+        <button class="button nav-login-btn" id="nav-login-btn" type="button" aria-haspopup="dialog">登录 / 注册</button>
+        <span class="user-badge" id="nav-user-badge" hidden>
+          <i data-lucide="circle-user-round"></i>
+          <span id="nav-username"></span>
+          <button class="btn-ghost" id="nav-logout" type="button">退出</button>
+        </span>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="doc-hero">
+      <div class="container">
+        <p class="eyebrow">XXSX DOCS</p>
+        <h1>文档与分享资料库</h1>
+        <p>xxsx-api 接口与运维文档、分享内容（AI 中转站 / 服务器 / 工具 / 教程）与虚无圣殿模组文档，统一收录于此。本站内容需要登录后查看。</p>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="container">
+        <div class="section-head"><div><p class="eyebrow">Categories</p><h2>文档分类</h2></div></div>
+        <div class="doc-grid">
+          <a class="doc-card" href="/docs/xxsx-api/">
+            <h2>xxsx-api 文档</h2>
+            <p>连接格式转换、节点部署、会话收集、接口约定与运维手册。</p>
+            <div class="doc-meta"><span class="lock">🔒</span> 登录可见 · xxsxjt</div>
+          </a>
+          <a class="doc-card" href="/docs/share/">
+            <h2>分享内容</h2>
+            <p>AI 中转站目录、服务器分享、AI 工具库与教程资料，全部整合为文档子页。</p>
+            <div class="doc-meta"><span class="lock">🔒</span> 登录可见 · xxsxjt</div>
+          </a>
+          <a class="doc-card" href="/docs/temple/">
+            <h2>虚无圣殿 · Temple of Nihility</h2>
+            <p>Minecraft 模组世界观、四系设计、功能说明与版本路线。</p>
+            <div class="doc-meta"><span class="lock">🔒</span> 登录可见 · 虚无圣殿品牌</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="band white">
+      <div class="container">
+        <div class="section-head"><div><p class="eyebrow">Quick Links</p><h2>快捷入口</h2></div></div>
+        <div class="nav-grid">
+          <a class="nav-tile" href="https://api.xxssxx.top/chat-room"><span class="tile-icon"><i data-lucide="layout-dashboard"></i></span><h2>聊天室 / 工作台</h2><p>登录后与大家聊天，用 @模型 呼叫 AI 助手。</p><span class="arrow">进入 →</span></a>
+          <a class="nav-tile blue" href="https://xxssxx.top/downloads/"><span class="tile-icon"><i data-lucide="download"></i></span><h2>下载中心</h2><p>API 客户端、远程工作台与游戏安装包。</p><span class="arrow">打开 →</span></a>
+          <a class="nav-tile amber" href="https://xxssxx.top/"><span class="tile-icon"><i data-lucide="home"></i></span><h2>组织首页</h2><p>返回 xxsx 组织门面，查看双身份入口。</p><span class="arrow">返回 →</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="container footer-row"><span>© <span data-year></span> xxsx 文档站</span><span>文档与分享内容仅向登录用户开放。</span><span><a href="https://xxssxx.top/legal/terms.html">用户协议</a> · <a href="https://xxssxx.top/legal/privacy.html">隐私政策</a></span></div></footer>
+
+  <!-- ── Auth modal ──────────────────────────────────────────────────────── -->
+  <dialog id="auth-modal" aria-label="登录 / 注册">
+    <div class="auth-inner">
+      <button class="auth-close" id="auth-modal-close" type="button" aria-label="关闭">×</button>
+      <div class="auth-brand"><span class="brand-mark">XX</span><span>xxsx 账号</span></div>
+      <div class="auth-tabs" role="tablist" aria-label="登录或注册">
+        <button class="auth-tab active" role="tab" type="button" data-tab="login" aria-selected="true">登录</button>
+        <button class="auth-tab" role="tab" type="button" data-tab="register" aria-selected="false">注册</button>
+      </div>
+      <form class="auth-panel" id="login-panel" data-panel="login">
+        <p class="auth-error" id="login-error" hidden></p>
+        <label class="auth-field"><span>用户名</span><input type="text" name="username" autocomplete="username" required placeholder="用户名"></label>
+        <label class="auth-field"><span>密码</span><input type="password" name="password" autocomplete="current-password" required placeholder="密码"></label>
+        <div id="ts-login" class="ts-widget"></div>
+        <button type="submit" class="button block" id="login-submit">登录</button>
+      </form>
+      <form class="auth-panel" id="register-panel" data-panel="register" hidden>
+        <p class="auth-error" id="register-error" hidden></p>
+        <label class="auth-field"><span>用户名</span><input type="text" name="username" autocomplete="username" required placeholder="用户名（至少3位）"></label>
+        <label class="auth-field"><span>密码</span><input type="password" name="password" autocomplete="new-password" required placeholder="密码（至少8位）"></label>
+        <div id="ts-register" class="ts-widget"></div>
+        <button type="submit" class="button block" id="register-submit">注册并登录</button>
+      </form>
+    </div>
+  </dialog>
+  <script src="/assets/js/auth.js?v=20260812-org"></script>
+  <script src="/assets/js/lucide-minimal.js"></script>
+  <script src="/assets/js/common.js?v=20260715-2"></script>
+</body>
+</html>

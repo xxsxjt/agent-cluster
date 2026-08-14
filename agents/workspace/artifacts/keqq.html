@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>腾讯课堂公告</title>
+    <style>
+        body{
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+
+        .main {
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+            width: 100vw;
+            height: 70vh;
+            display: flex;
+            align-items: center;     /* 垂直居中 */
+        }
+        .header {
+            width:100%;
+            top:0px;
+            background: #fff;
+            padding: 0px ; /* 减小上下padding，增加左padding */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: left; /* 左对齐 */
+        }
+        .logo {
+            padding: 0px; /* 减小上下padding，增加左padding */
+            height:48px;
+
+        }
+        .logo img {
+            margin-left:50px;
+            height:48px;
+        }
+        .container {
+            width: 1024px;
+            height:560px;
+            justify-content: center; /* 水平居中 */
+            margin: 0 auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .main-image {
+            margin: 30px 0;
+            width:100%;
+            display: flex; 
+            justify-content: center;
+        }
+        .main-image img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        .offline-title {
+            color:#232F43;
+            font-size: 24px;
+            margin-bottom: 0px;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: 400;
+            color: #3E454D;
+        }
+        .contact {
+            margin-top: 180px;
+            font-weight: 400;
+            font-size: 14px;
+            color:#808A98;
+            border-top: 1px solid #e0e0e0;
+            padding-top: 20px;
+        }
+        .learn-container{
+            display: flex;
+            justify-content: center; /* 水平居中 */
+            width:100%;
+        }
+
+        .learn-tips{
+            background-color: #F5F7FA; 
+            padding: 10px; 
+            line-height: 22px;
+            width: 326px;
+            height:68px;
+            font-size: 14px;
+            border-radius: 8px; 
+            text-align: center; 
+            font-family: Arial, sans-serif; 
+            font-weight:400;
+            color: #A1A9B2;
+        }
+
+        .learn-ketang{
+            padding: 0px;
+            display: block; 
+            width:100%;
+            line-height: 22px;
+            font-size: 14px;
+            text-align: right; 
+            font-family: Arial, sans-serif; 
+            font-weight:400;
+            padding:0px;
+            color: #A1A9B2;
+        }
+
+        a {
+            color: #808A98;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .copyright{
+            font-size: 14px;
+            color: #323232;
+            padding-top: 17px;
+            text-align: center; 
+            width:100%;
+            position:absolute;
+            bottom:10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="https://cdn.panshi.qq.com/public/logo.92b7b025.png"  alt="腾讯课堂Logo">
+        </div>
+    </div>
+    <div class="main">
+        <div class="container">
+            <div class="main-image">
+                <img src="https://cdn.panshi.qq.com/public/xiaxian.d80af098.png" style="width:120px;height:120px;" alt="腾讯课堂">
+            </div>
+            <h1 class="offline-title">腾讯课堂已正式下线</h1>
+            <p >腾讯课堂已经停止运营，目前已经全面停止所有平台服务。</p>
+            <div class="learn-container">
+                <div class="learn-tips">
+                    感谢各位用户多年以来的支持与陪伴。<br/>
+                    希望大家做一个终身学习者。
+                        <br/>
+                        <span class="learn-ketang">
+                            ——腾讯课堂
+                        </span> 
+                </div> 
+                
+            </div>
+            <div class="contact">
+                联系方式：如有需要，请联系 <<a href="mailto:ketangkefu@tencent.com">ketangkefu@tencent.com</a>>
+            </div>
+        </div>
+    </div>
+    <div  class="copyright">
+      Copyright © 1998 - 2025 Tencent. All Rights Reserved.
+    </div>
+</body>
+</html>

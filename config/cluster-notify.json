@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "notifyDone": true,
+  "notifyAnomalyAutoRecovered": false,
+  "newApiUrl": "http://127.0.0.1:3461/api/mobile/admin/cluster/notify",
+  "hkHost": "103.100.159.111",
+  "hkPort": "43891",
+  "hkUser": "root",
+  "hkKey": "~/.ssh/id_ed25519_xxsx_hk",
+  "lastButlerAnomaly": {
+    "ts": "2026-08-10T06:24:14.690Z",
+    "note": "butler 反复死亡 4 次，已暂停自动拉起，需人工核查"
+  }
+}

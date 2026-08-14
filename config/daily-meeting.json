@@ -1,0 +1,8 @@
+{
+  "enabled": true,
+  "hour": 22,
+  "minute": 0,
+  "windowMinutes": 90,
+  "mgmtGroup": ["twin", "pm", "reviewer", "channel-manager", "learning-officer", "night-worker"],
+  "participants": []
+}

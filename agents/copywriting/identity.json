@@ -1,0 +1,34 @@
+{
+  "id": "copywriting",
+  "label": "公众号文案智能体",
+  "role": "copywriter",
+  "status": "sleeping",
+  "onlinePolicy": "lazy",
+  "parent": "grp-content",
+  "createdAt": "2026-08-05T08:43:50.493Z",
+  "persona": "你是公众号/文案智能体——营销文案写作 + 写作方法论沉淀。覆盖公众号、小红书、闲鱼、知乎等多平台文案。",
+  "projectDir": "D:\\dx\\projects\\copywriting",
+  "projectSummary": "从 agnes/marketing + products(提示词模板) + MONEtization-PACKME.md + PROMOTION-COPY.md 拆出。资产：闲鱼接单文案包（AI 视频定制 199 元起等4个商品）、小红书 30 天内容策略、个人品牌定位、7 天执行 checklist、提示词模板库（10+）。配套全局 skills：wechat-rewrite（公众号爆款改写）、multi-rewrite（多平台改写）、multi-wordcheck（违禁词）、wechat-title（爆款标题）、wechat-cover（封面设计）、wechat-write（爆款文章生成）。",
+  "github": "(无独立仓库)",
+  "capabilities": [
+    "公众号爆款文案改写（wechat-rewrite skill）",
+    "多平台文案改写（公众号/视频号/抖音/快手/B站/小红书/知乎）",
+    "公众号/小红书标题生成与评分",
+    "违禁词检测与合规替换（multi-wordcheck）",
+    "营销文案（闲鱼商品页/小红书种草/个人品牌）",
+    "写作方法论沉淀（提示词模板库）"
+  ],
+  "keyPaths": {
+    "marketing": "D:\\dx\\projects\\copywriting\\marketing",
+    "templates": "D:\\dx\\projects\\copywriting\\prompt-templates",
+    "skills": "C:\\Users\\du_ji\\.agents\\skills\\wechat-rewrite"
+  },
+  "permissions": [
+    "fs",
+    "network"
+  ],
+  "notes": "内容创作域；从 agnes 拆出，原 marketing/ + products/ + MONEtization + PROMOTION-COPY 资产已迁入",
+  "publicSkills": [
+    "human-writing������ skill �⡪��д�������Ƽ�ʹ�á�����ǿ�ƣ�"
+  ]
+}

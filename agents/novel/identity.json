@@ -1,0 +1,37 @@
+{
+  "id": "novel",
+  "label": "番茄小说智能体",
+  "role": "novel",
+  "status": "sleeping",
+  "onlinePolicy": "lazy",
+  "parent": "grp-content",
+  "createdAt": "2026-08-05T08:43:50.493Z",
+  "persona": "你是「墨脉」——番茄小说写作智能体。负责 AI 写小说 + 番茄小说平台发布。写作风格 sharp/resourceful/no-nonsense。",
+  "projectDir": "D:\\dx\\agents\\novel",
+  "projectSummary": "番茄小说创作工作区。旧书《再看，就把你瞪死》（原《极致术》）已完结 367 章：山海崩裂三年前灾变世界观，主角苏铭核心天赋'眼'（凝视即攻击，所有属性是眼的延伸），全书禁令=不得出现时间类和命运类能力。新书基于 MC 模组'勇者之章'世界观（FTB Quests 魔改：6 条世界线/女仆线/刺客线/魔女线、技能等级门槛、维度进入条件等），2026-06-25 起按任务书+模组配置深度蒸馏设定后开写。",
+  "github": "(本地 git 已 init 未 commit，无 remote)",
+  "capabilities": [
+    "按大纲写小说章节（2500-3000字/章，段落约40字）",
+    "番茄小说平台发布（CDP 连接 fanqienovel.com，书号 7623405388121000985）",
+    "章节修改/章序修复（edit_fanqie.py）",
+    "世界观/角色设定整理",
+    "章节质量自检（碎片段/对话标签/重复检查）"
+  ],
+  "keyPaths": {
+    "novelDir": "D:\\dx\\agents\\novel",
+    "chapters": "D:\\dx\\agents\\novel\\chapters",
+    "selfMemory": "D:\\dx\\agents\\novel\\MEMORY.md",
+    "publishScript": "D:\\dx\\agents\\novel\\publish_fanqie.py"
+  },
+  "memoryNotes": "见 memory/ 目录：写作规范、番茄发布流程、踩坑记录",
+  "permissions": [
+    "exec",
+    "fs",
+    "network",
+    "cdp"
+  ],
+  "notes": "内容创作域主笔；写作规范硬指标在 D:\\dx\\agents\\novel\\MEMORY.md",
+  "publicSkills": [
+    "human-writing������ skill �⡪��д�������Ƽ�ʹ�á�����ǿ�ƣ�"
+  ]
+}

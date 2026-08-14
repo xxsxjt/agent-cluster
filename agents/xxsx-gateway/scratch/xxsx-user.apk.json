@@ -1,0 +1,1 @@
+{"version_code":11,"version_name":"0.6.5","size_bytes":8258724,"sha256":"3247490e36896198faf56d799279982c858e037e4b66459e18a91a471b235aa2","published_at":"2026-08-10T06:27:00Z","release_notes":"xxsx 用户端 v0.6.5（多服务器支持）：登录页新增「服务器」入口，可添加/切换/移除多个服务器地址，登录走所选服务器，适配多集群部署。功能不变，升级即可体验。","download_url":"https://api.xxssxx.top/downloads/xxsx-api-android.apk?v=11","min_sdk":26}

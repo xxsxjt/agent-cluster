@@ -1,0 +1,11 @@
+{
+  "enabled": true,
+  "logStaleMin": 10,
+  "l1StaleMin": 15,
+  "l2StaleMin": 15,
+  "fixMaxPerWindow": 3,
+  "fixWindowMin": 30,
+  "fixRetry": 2,
+  "notifyUser": true,
+  "checkL2": true
+}

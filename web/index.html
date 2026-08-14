@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0e1116">
+<title>智能体集群 · 组织总览</title>
+<link rel="stylesheet" href="/style.css?v=20260809-consolechat">
+</head>
+<body>
+<div id="app" v-cloak>
+
+  <header class="top">
+    <div class="brand" @click="tab='tree'">
+      <span class="logo">⛭</span>
+      <div class="bt">
+        <div class="b1">v5 组织总览</div>
+        <div class="b2">org {{ orgVersion || '?' }} · {{ relTime(orgUpdatedAt) }}</div>
+      </div>
+    </div>
+    <div class="tools">
+      <span class="pill" :class="twin.running ? 'ok' : 'off'" :title="'twin.pid ' + (twin.pid || '-') + '｜点击对话'">
+        <i class="dot"></i>分身{{ twin.running ? '常驻' : '离线' }}
+      </span>
+      <span class="pill" :class="butler.running ? 'ok' : 'off'" :title="'butler.pid ' + (butler.pid||'-')">
+        <i class="dot"></i>管家{{ butler.running ? '在线' : '离线' }}
+      </span>
+      <!-- 对话醒目入口（2026-08-09） -->
+      <button class="pill chat-cta" @click="openChatTab()"
+              :title="chatSessions.length ? '当前 ' + chatSessions.length + ' 个会话，点此切到对话' : '与分身 / 智能体对话（粘贴文件路径或拖入文件自动转引用）'">
+        💬 对话<template v-if="chatSessions.length"><i class="ndot"></i></template>
+      </button>
+      <button class="pill act" :class="live ? 'ok' : 'off'" @click="live = !live">
+        <i class="dot"></i>{{ live ? '实时' : '暂停' }}
+      </button>
+      <button class="pill sleep" :class="{on: shutdown.armed}" @click="toggleShutdown" :disabled="shutdownBusy"
+              :title="shutdown.armed
+                ? '睡前模式已开启：全部任务完成后 120 秒自动关机（90 分钟卡死保护）。再点一次解除'
+                : '睡前模式：全部任务做完后自动关机（一键，无需守着）'">
+        <span class="moon">🌙</span>{{ shutdown.armed
+          ? (shutdownBusy ? '解除中…' : '睡前·剩 ' + shutdown.pendingCount + ' 任务')
+          : (shutdownBusy ? '开启中…' : '睡前模式') }}
+      </button>
+      <select v-model.number="intervalMs" class="sel" aria-label="刷新间隔">
+        <option :value="2000">2s</option>
+        <option :value="5000">5s</option>
+        <option :value="10000">10s</option>
+        <option :value="30000">30s</option>
+      </select>
+      <button class="btn" @click="tick(true)" :disabled="busyReq">{{ busyReq ? '…' : '刷新' }}</button>
+    </div>
+  </header>
+
+  <div class="banner" v-if="error">⚠ {{ error }}<button class="mini" @click="tick(true)">重试</button></div>
+  <div class="banner warn" v-else-if="orgError">⚠ {{ orgError }}</div>
+
+  <main class="grid" :class="'tab-' + tab">
+    <!-- 左：组织树（grp-cloud 云端分组已融入本机树） -->
+    <section class="pane left">
+      <div class="ph">
+        <span>组织树</span>
+        <span class="ph-r">{{ counts.agents }} 智能体 · {{ counts.groups }} 组<template v-if="counts.components"> · {{ counts.components }} 系统组件</template></span>
+      </div>
+      <div class="scroll">
+        <ul class="tree" v-if="rootNode">
+          <li class="node root">
+            <div class="row" @click="select('root')" :class="{on: selectedId==='root'}">
+              <span class="fold ph0"></span><span class="ico">👑</span>
+              <span class="lab">{{ rootNode.label || 'root' }}</span>
+            </div>
+          </li>
+          <tree-node v-for="cid in (rootNode.children||[])" :key="cid" :id="cid"
+                     :nodes="nodes" :activity="activity" :depth="1" :selected="selectedId"
+                     :collapsed="collapsed" :chat-ids="chatIds"
+                     @pick="select" @fold="toggleFold" @chat="openChat"></tree-node>
+        </ul>
+        <div class="empty" v-else>org.json 里没有 root 节点</div>
+      </div>
+    </section>
+
+    <!-- 中：选中智能体的最新输出 / 对话视图 -->
+    <section class="pane mid">
+      <template v-if="!chatSessions.length">
+      <div class="ph col">
+        <div class="midtitle">
+          <b>{{ detailLabel }}</b>
+          <span class="chip" v-if="detailNode">{{ detailNode.type==='group' ? '组' : (detailNode.role||'agent') }}</span>
+          <span class="chip" :class="'st-'+(detailNode&&detailNode.status)" v-if="detailNode">{{ detailNode.status || '-' }}</span>
+          <span class="chip run" v-if="selectedBusy"><i class="dot"></i>运行中</span>
+        </div>
+        <div class="comp-note" v-if="detailNode && detailNode.component">
+          <b>⚙️ 系统组件 · 管家执行器</b>
+          <span>任务调度 / 进程管理 / watchdog——非 AI 智能体（无大脑），决策由分身负责。</span>
+          <span v-if="detailNode.notes" class="mono sm">{{ detailNode.notes }}</span>
+        </div>
+        <div class="subtabs">
+          <button v-for="s in subtabs" :key="s.k" :class="{on: sub===s.k}" @click="sub=s.k">
+            {{ s.t }}<em v-if="s.n">{{ s.n }}</em>
+          </button>
+          <label class="auto" :class="{on: autoScroll}" @click="autoScroll=!autoScroll" title="新输出自动滚到底">⤓</label>
+        </div>
+      </div>
+      <!-- 输出流 -->
+      <div class="scroll out" ref="outBox" v-show="sub==='out'" @scroll="onOutScroll">
+        <div class="logbar" v-if="detail && detail.log">
+          <span class="mono">{{ detail.log.file }}</span>
+          <span>{{ fmtSize(detail.log.size) }}</span>
+          <span>{{ detail.log.format }}</span>
+          <span v-if="detail.log.dropped>0">仅显示最近 {{ detail.log.events.length }} / {{ detail.log.total }} 条</span>
+          <span v-if="detail.log.meta && detail.log.meta.model" class="mono">{{ detail.log.meta.model }}</span>
+          <span v-if="detail.log.meta && detail.log.meta.skipped">已滤 {{ detail.log.meta.skipped }} 条遥测</span>
+          <button class="btn-mini" @click="showFullLog()" title="拉取该任务完整事件记录（不受 120 条限制）">查看完整记录</button>
+          <span v-if="interjectTarget" class="interject" :class="{on: interjectTarget.status==='running'}">
+            <input v-model="interjectMsg" @keydown.enter.exact.prevent="sendInterject"
+                   placeholder="插嘴：向运行中的任务会话发消息…" :disabled="interjectBusy">
+            <button class="btn-mini" @click="sendInterject"
+                    :disabled="interjectBusy || !interjectMsg.trim()">{{ interjectBusy ? '发送中…' : '插嘴' }}</button>
+            <span v-if="interjectNote" class="inj-note" :class="{err: interjectErr}">{{ interjectNote }}</span>
+          </span>
+        </div>
+        <div class="tasksel" v-if="detail && detail.tasks && detail.tasks.length>1">
+          <span>任务:</span>
+          <button v-for="t in detail.tasks" :key="t.name" class="tsel"
+                  :class="{on: detail.selectedTask===t.name}" @click="pickTask(t.name)">
+            <i class="dot" :class="'d-'+t.status"></i>{{ t.name }}
+          </button>
+        </div>
+        <div v-if="!detail" class="empty">选一个智能体看它的最新输出</div>
+        <div v-else-if="!detail.log" class="empty">
+          该{{ detailNode && detailNode.type==='group' ? '组' : '智能体' }}还没有任务日志<br>
+          <small v-if="detail.tasks && !detail.tasks.length">logs/ 里没有归属它的日志文件</small>
+        </div>
+        <div v-else class="events">
+          <div v-for="(e,i) in detail.log.events" :key="i" class="ev" :class="['k-'+e.kind, {err: e.error}]">
+            <div class="evh">
+              <span class="tag">{{ kindLabel(e) }}</span>
+              <span class="tool mono" v-if="e.tool">{{ e.tool }}</span>
+              <span class="ts">{{ fmtTime(e.ts) }}</span>
+            </div>
+            <pre class="evb" :class="{clamp: clampKinds.includes(e.kind)}">{{ e.text }}</pre>
+          </div>
+          <div class="empty" v-if="!detail.log.events.length">日志为空</div>
+        </div>
+      </div>
+
+      <!-- 任务列表 -->
+      <div class="scroll" v-show="sub==='tasks'">
+        <div class="trace-panel" v-if="trace">
+          <div class="fgh">
+            <span>🔗 全链路 · {{ trace.task }}</span>
+            <button class="x" @click="closeTrace">✕</button>
+          </div>
+          <div class="empty sm" v-if="trace.ok && !trace.events.length">{{ trace.note || '暂无链路事件' }}</div>
+          <div v-else-if="trace.err">⚠ {{ trace.err }}</div>
+          <div v-else>
+            <div v-for="(e,i) in trace.events" :key="i" class="tr lk">
+              <span class="tr-ts">{{ fmtTime(e.ts) }}</span>
+              <span class="tr-tag stg">{{ traceStageText(e.stage) }}</span>
+              <span class="tr-txt">{{ e.text }}</span>
+              <span class="tr-det" v-if="e.detail">{{ e.detail }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="empty" v-if="!detail || !detail.tasks || !detail.tasks.length">没有归属它的任务</div>
+        <div v-else class="tasklist">
+          <div v-for="t in detail.tasks" :key="t.name" class="tcard" @click="pickTask(t.name)">
+            <div class="tc-h">
+              <i class="dot" :class="'d-'+t.status"></i>
+              <b>{{ t.name }}</b>
+              <button class="mini lkbtn" @click.stop="showTrace(t.name)" title="全链路：分身指示→管家派发→执行→完成→验收">🔗</button>
+              <span class="chip">{{ statusText(t.status) }}</span>
+              <span class="ts">{{ fmtTime(t.touchedAt) }}</span>
+            </div>
+            <div class="tc-b" v-if="t.result"><pre class="clamp">{{ t.result }}</pre></div>
+            <div class="tc-m">
+              <span v-if="t.pid">PID {{ t.pid }}</span>
+              <span v-if="t.runningMinutes!=null">已跑 {{ t.runningMinutes }} 分钟</span>
+              <span v-if="t.log">{{ fmtSize(t.logSize) }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- memory / 产出文件 -->
+      <div class="scroll" v-show="sub==='files'">
+        <div class="fgroup" v-for="g in fileGroups" :key="g.t">
+          <div class="fgh">{{ g.t }} <span class="ph-r">{{ g.list.length }}</span></div>
+          <div class="empty sm" v-if="!g.list.length">（空）</div>
+          <button v-for="f in g.list" :key="f.path" class="frow" @click="openFile(f.path)">
+            <span class="mono">{{ f.name }}</span>
+            <span class="ts">{{ fmtSize(f.size) }} · {{ fmtTime(f.mtime) }}</span>
+          </button>
+        </div>
+        <div class="filebox" v-if="fileView">
+          <div class="fgh">
+            <span class="mono">{{ fileView.path }}</span>
+            <button class="x" @click="fileView=null">✕</button>
+          </div>
+          <pre>{{ fileView.text }}</pre>
+        </div>
+      </div>
+
+      <!-- identity -->
+      <div class="scroll" v-show="sub==='id'">
+        <div class="empty" v-if="!detail">未选中</div>
+        <template v-else>
+          <div class="kv" v-for="(v,k) in flatNode" :key="k">
+            <span class="k">{{ k }}</span><span class="v">{{ v }}</span>
+          </div>
+          <div class="fgh" style="margin-top:10px">identity.json</div>
+          <pre class="idjson" v-if="detail.identity">{{ JSON.stringify(detail.identity, null, 2) }}</pre>
+          <div class="empty sm" v-else>无 identity.json</div>
+        </template>
+      </div>
+
+      <!-- 记忆（3 层检索：时间线 + 检索 + 实体图谱） -->
+      <div class="scroll" v-show="sub==='mem'">
+        <div class="empty" v-if="!detail">未选中</div>
+        <template v-else>
+          <div class="membar" v-if="mem && mem.index">
+            <span class="mono">index.json</span>
+            <span>{{ mem.index.count }} 条</span>
+            <span>更新 {{ fmtTime(mem.index.updatedAt) }}</span>
+          </div>
+          <input class="memkw" v-model="memKw" placeholder="关键词过滤检索条目…">
+          <div class="fgh" style="margin-top:8px">时间线（近 7 天）</div>
+          <div class="empty sm" v-if="!mem || !mem.timeline.length">暂无日记条目</div>
+          <div v-for="d in (mem ? mem.timeline : [])" :key="d.date" class="memday">
+            <div class="memdate mono">{{ d.date }} <span class="ph-r">{{ d.count }}</span></div>
+            <div v-for="(t,i) in d.tasks" :key="i" class="memtask">▸ {{ t }}</div>
+          </div>
+          <div class="fgh" style="margin-top:10px">检索条目（最近 30 条）<span class="ph-r">{{ memItems.length }}</span></div>
+          <div class="empty sm" v-if="!mem || !memItems.length">无匹配条目</div>
+          <div v-for="(it,i) in memItems" :key="i" class="memitem">
+            <div class="memih"><span class="ts mono">{{ it.ts }}</span><b>{{ it.task }}</b></div>
+            <div class="memis" v-if="it.snippet">{{ it.snippet }}</div>
+            <div class="memlesson" v-if="it.lessons">💡 {{ it.lessons }}</div>
+          </div>
+          <div class="fgh" style="margin-top:10px">实体图谱 <span class="ph-r">{{ mem ? mem.entities.length : 0 }}</span></div>
+          <div class="empty sm" v-if="!mem || !mem.entities.length">暂无实体</div>
+          <div class="mentities" v-else>
+            <span v-for="e in mem.entities" :key="e.name" class="ment" :class="'es-'+e.status"
+                  :title="e.status + ' · 首见 ' + e.firstSeen + ' · x' + e.count">{{ e.name }}<em>x{{ e.count }}</em></span>
+          </div>
+        </template>
+      </div>
+      </template>
+
+      <!-- 对话视图 (v5.1 多开会话) -->
+      <template v-else>
+        <div class="chatview">
+          <div class="cv-h">
+            <button class="cv-back" @click="closeChat">← 关全部</button>
+            <div class="cv-tabs">
+              <button v-for="s in chatSessions" :key="s.id" class="cv-tab"
+                      :class="{on: activeChat===s.id}" @click="switchChat(s.id)">
+                💬 {{ s.label }}<i class="x" @click.stop="closeChatSession(s.id)">✕</i>
+              </button>
+              <button class="cv-tab new" @click="chatPicker=true" title="新开一个会话">＋</button>
+            </div>
+            <span class="cv-status run" v-if="activeSession && activeSession.busy"><i class="dot"></i>回复中…</span>
+            <span class="cv-status idle">{{ chatSessions.length }} 个会话</span>
+          </div>
+          <!-- 对话状态栏：模型/渠道/思考等级 + 分身在线判定（对照终端状态栏） -->
+          <div class="cv-statusbar">
+            <span class="sb-item" title="模型"><span class="sb-k">模型</span><b class="mono">{{ chatMeta.model }}</b></span>
+            <span class="sb-item" title="渠道"><span class="sb-k">渠道</span><b class="mono">{{ chatMeta.provider }}</b></span>
+            <span class="sb-item" title="思考等级"><span class="sb-k">思考</span><b>{{ chatMeta.thinking }}</b></span>
+            <span class="sb-item" :class="activeChat==='twin' ? (twin.running?'ok':'off') : ''"
+                  v-if="activeChat==='twin'" title="分身在线判定（PID 存活 + 足迹活跃 / TCP 可连）">
+              <span class="sb-k">分身</span><b>{{ twinStatusLabel }}</b>
+            </span>
+            <span class="sb-item" title="上下文 / 会话用量"><span class="sb-k">上下文</span><b>{{ chatCtxLabel }}</b></span>
+            <span class="sb-item hint">📎 粘贴文件路径或拖入文件 → 自动转 [file:路径]</span>
+          </div>
+          <div class="bubbles scroll" ref="chatBox">
+            <div class="empty" v-if="activeSession && !chatMsgs.length && !activeSession.busy">还没有对话，发条消息试试</div>
+            <div v-for="(m, i) in chatMsgs" :key="i" class="bub" :class="m.role">
+              <div class="who">{{ m.role === 'user' ? '我' : chatLabel }}<span class="ts">{{ fmtTime(m.ts) }}</span></div>
+              <div class="txt">{{ m.content }}</div>
+            </div>
+            <div class="bub agent typing" v-if="activeSession && activeSession.busy">
+              <div class="who">{{ chatLabel }}</div>
+              <div class="txt"><span class="tdots"><i></i><i></i><i></i></span></div>
+            </div>
+          </div>
+          <div class="banner" v-if="activeSession && activeSession.err">⚠ {{ activeSession.err }}</div>
+          <div class="chat-input" @drop.prevent="onFileDrop($event)" @dragover.prevent>
+            <textarea ref="chatInput" v-model="activeSession.input" rows="2"
+                      placeholder="输入消息，Enter 发送 / Shift+Enter 换行 / 粘贴文件路径或拖入文件自动转 [file:路径]"
+                      @paste="onPastePath($event)"
+                      @keydown.enter.exact.prevent="sendChat" :disabled="!activeSession || activeSession.busy"></textarea>
+            <button class="ci-send" @click="sendChat" :disabled="!activeSession || activeSession.busy || !activeSession.input.trim()">
+              {{ activeSession && activeSession.busy ? '等待中…' : '发送' }}
+            </button>
+          </div>
+        </div>
+      </template>
+    </section>
+    <!-- ── 右：管家小结 ───────────────────────────── -->
+    <section class="pane right">
+      <div class="ph">
+        <span>管家小结</span>
+        <span class="ph-r">
+          <button class="mini" @click="runReal" :disabled="realBusy">
+            {{ realBusy ? '执行中…' : '跑真实 --summary' }}
+          </button>
+        </span>
+      </div>
+      <div class="scroll">
+        <div class="statgrid" v-if="s">
+          <div class="stat"><b>{{ s.summary.counts.agents }}</b><span>智能体</span></div>
+          <div class="stat"><b>{{ s.summary.counts.busy }}</b><span>干活中</span></div>
+          <div class="stat"><b>{{ s.summary.counts.groups }}</b><span>组</span></div>
+          <div class="stat comp" v-if="s.summary.counts.components"><b>⚙️ {{ s.summary.counts.components }}</b><span>系统组件</span></div>
+          <div class="stat"><b>{{ runningTasks.length }}</b><span>活动任务</span></div>
+        </div>
+
+        <div class="fgh">状态总览</div>
+        <pre class="sumbox" v-if="s">{{ s.summary.text }}</pre>
+
+        <template v-if="real">
+          <div class="fgh">butler --summary <span class="ph-r sm">{{ real.cached ? '缓存' : '刚跑' }} {{ fmtTime(real.at) }}</span></div>
+          <pre class="sumbox">{{ real.text }}</pre>
+        </template>
+
+        <div class="fgh">活动任务 <span class="ph-r">{{ runningTasks.length }}</span></div>
+        <div class="empty sm" v-if="!runningTasks.length">当前没有正在跑的任务</div>
+        <button v-for="t in runningTasks" :key="t.name" class="act-task" @click="jumpTask(t)">
+          <i class="dot d-running"></i>
+          <span class="mono">{{ t.name }}</span>
+          <span class="ts">{{ t.agentId || '?' }} · {{ t.runningMinutes }}m</span>
+        </button>
+
+        <div class="fgh" style="margin-top:12px">收件箱 <span class="ph-r">{{ s ? s.tasks.length : 0 }}</span></div>
+        <div class="empty sm" v-if="s && !s.tasks.length">inbox/ 里没有任务</div>
+        <button v-for="t in (s ? s.tasks : [])" :key="t.name" class="trow"
+                @click="jumpTask(t)">
+          <i class="dot" :class="'d-'+t.status"></i>
+          <span class="tn mono">{{ t.name }}</span>
+          <span class="ta">{{ t.agentId || '?' }}</span>
+          <span class="ts">{{ fmtTime(t.touchedAt) }}</span>
+        </button>
+
+        <div class="fgh" style="margin-top:12px">最近删除的任务 <span class="ph-r">{{ s ? s.recentDeleted.length : 0 }}</span></div>
+        <div class="empty sm" v-if="s && !s.recentDeleted.length">暂无删除记录（服务运行期间删除/消失的任务会记在这里）</div>
+        <div v-for="t in (s ? s.recentDeleted : [])" :key="'del-'+t.name" class="trow del" :title="'最后状态: ' + statusText(t.lastStatus)">
+          <i class="dot d-stale"></i>
+          <span class="tn mono">{{ t.name }}</span>
+          <span class="ta">{{ t.agentId || '?' }} · {{ statusText(t.lastStatus) }}</span>
+          <span class="ts">{{ relTime(t.deletedAt) }}</span>
+        </div>
+
+        <div class="fgh" style="margin-top:12px">
+          分身足迹 <span class="ph-r">
+            <span :class="twin.running ? 'ok' : 'off'" style="font-weight:400">{{ twin.running ? '常驻' : '离线' }}</span>
+            <button class="mini" @click="toggleTwinActivity">{{ showTwinActivity ? '收起' : '展开' }}</button>
+          </span>
+        </div>
+        <div class="empty sm" v-if="twin.running && twin.lastActivity">{{ twin.lastActivity.text }}</div>
+        <div class="empty sm" v-else-if="!twin.running">分身未常驻（可运行 node scripts/bootstrap.js twin start）</div>
+        <div class="trace" v-if="showTwinActivity">
+          <div class="empty sm" v-if="!twinActivity.lines.length">暂无足迹</div>
+          <div v-for="(l,i) in twinActivity.lines" :key="i" class="tr" :class="'tag-'+l.tag">
+            <span class="tr-ts">{{ l.ts.slice(11) }}</span>
+            <span class="tr-tag">{{ l.tag }}</span>
+            <span class="tr-txt">{{ l.text }}</span>
+          </div>
+        </div>
+
+        <div class="fgh" style="margin-top:12px">butler.log
+          <span class="ph-r"><button class="mini" @click="toggleButlerLog">{{ showBLog ? '收起' : '展开' }}</button></span>
+        </div>
+        <pre class="sumbox blog" v-if="showBLog">{{ blog || '加载中…' }}</pre>
+      </div>
+    </section>
+  </main>
+
+  <nav class="tabbar">
+    <button :class="{on: tab==='tree'}" @click="tab='tree'">组织树</button>
+    <button :class="{on: tab==='out'}" @click="tab='out'">
+      输出<i class="ndot" v-if="selectedBusy"></i>
+    </button>
+    <button :class="{on: tab==='sum'}" @click="tab='sum'">小结</button>
+    <button :class="{on: tab==='chat'}" @click="tabChat()">对话</button>
+  </nav>
+
+  <!-- 对话对象选择 -->
+  <div class="cp-mask" v-if="chatPicker" @click="chatPicker=false">
+    <div class="cp-box" @click.stop>
+      <div class="fgh">选择对话智能体<button class="x" @click="chatPicker=false">✕</button></div>
+      <button class="cp-item" v-for="a in chatList" :key="a.id" @click="openChat(a.id)">💬 {{ a.label }}</button>
+      <div class="empty sm" v-if="!chatList.length">暂无可对话智能体（需要 agents/&lt;id&gt;/AGENTS.md 人格文件）</div>
+    </div>
+  </div>
+
+  <!-- 完整记录弹层（查看任务全部事件，不受 120 条截断）— 必须在 #app 内，否则 v-if/@click 不生效 -->
+  <div v-if="fullLog" class="full-log-overlay" @click.self="closeFullLog()">
+    <div class="full-log-box">
+      <div class="full-log-head">
+        <b>完整记录</b>
+        <span class="mono" v-if="fullLog.file">{{ fullLog.file }} · {{ fullLog.events.length }} 条事件</span>
+        <button class="btn-mini" @click="closeFullLog()">✕ 关闭</button>
+      </div>
+      <div class="full-log-body">
+        <template v-if="fullLog && fullLog.events && fullLog.events.length">
+          <div v-for="(e,i) in fullLog.events" :key="i" class="ev" :class="['k-'+e.kind, {err: e.error}]">
+            <div class="evh">
+              <span class="tag">{{ kindLabel(e) }}</span>
+              <span class="tool mono" v-if="e.tool">{{ e.tool }}</span>
+              <span class="ts">{{ fmtTime(e.ts) }}</span>
+            </div>
+            <pre class="evb mono">{{ e.text }}</pre>
+          </div>
+        </template>
+        <div v-else class="empty">（无事件）</div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 递归树节点组件 -->
+<script type="text/x-template" id="tpl-tree-node">
+  <li class="node">
+    <div class="row" :class="{on: selected===id, miss: !raw}"
+         :style="{paddingLeft: (6 + depth*14) + 'px'}" @click="$emit('pick', id)">
+      <span class="fold" v-if="hasKids" @click.stop="$emit('fold', id)">{{ folded ? '▸' : '▾' }}</span>
+      <span class="fold ph0" v-else></span>
+      <span class="ico">{{ icon }}</span>
+      <span class="lab">{{ raw ? (raw.label || id) : ('缺失: ' + id) }}</span>
+      <span class="comp-badge" v-if="component" title="非 AI 智能体：机械执行器，决策归分身">系统组件</span>
+      <i class="dot" :class="dotClass" :title="statusText"></i>
+      <span class="chat-ico" v-if="!component && chatIds.indexOf(id) >= 0" @click.stop="$emit('chat', id)" title="与 TA 对话">💬</span>
+      <span class="cnt" v-if="hasKids">{{ node.children.length }}</span>
+    </div>
+    <ul v-if="hasKids && !folded">
+      <tree-node v-for="cid in node.children" :key="cid" :id="cid" :nodes="nodes" :activity="activity"
+                 :depth="depth + 1" :selected="selected" :collapsed="collapsed" :chat-ids="chatIds"
+                 @pick="$emit('pick', $event)" @fold="$emit('fold', $event)" @chat="$emit('chat', $event)"></tree-node>
+    </ul>
+  </li>
+</script>
+
+<!-- 本地 Vue，取不到时回退 CDN -->
+<script src="/vendor/vue.global.prod.js"></script>
+<script>
+if (!window.Vue) {
+  document.write('<script src="https://cdn.jsdelivr.net/npm/vue@3.5.13/dist/vue.global.prod.js"><\/script>');
+}
+</script>
+<script src="/app.js?v=20260808-status"></script>
+
+</body>
+</html>

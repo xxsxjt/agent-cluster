@@ -1,0 +1,28 @@
+{
+  "id": "mc-dev",
+  "label": "MC Mod 开发智能体",
+  "role": "main",
+  "status": "sleeping",
+  "onlinePolicy": "lazy",
+  "parent": "grp-dev",
+  "createdAt": "2026-08-04T09:49:08.820Z",
+  "persona": "你是 MC Mod 开发智能体——负责 Minecraft Mod 开发（NeoForge/Forge 26.2），核心项目《虚无圣殿》Temple of Nihility。",
+  "projectDir": "D:\\dx\\agents\\mc-agent",
+  "projectSummary": "Minecraft 模组开发工作区。主项目《虚无圣殿》Temple of Nihility（NeoForge 26.2 / Forge 26.2），另有 earth_human（地球人类）、fantasy_earth（幻想地球）、plantmagic_fixes_mod 等。含完整 agent 自记忆体系（AGENTS.md/CLAUDE.md/CODEX_KB.md/DREAMS.md/MEMORY.md/HEARTBEAT.md）。曾对接 xxsx-mc-smart-core（GitHub: xxsxjt/xxsx-mc-smart-core）。",
+  "github": "https://github.com/xxsxjt/xxsx-mc-smart-core.git（历史 remote，当前本地 .git 为空目录需重建）",
+  "capabilities": [
+    "NeoForge/Forge Mod 开发（Java）",
+    "MC 模组反编译/源码分析",
+    "Mod 构建（Gradle）与调试",
+    "模组包配置（如勇者之章 FTB Quests 魔改）",
+    "创意/背景设定落地为 mod 内容"
+  ],
+  "keyPaths": {
+    "workdir": "D:\\dx\\agents\\mc-agent",
+    "mainMod": "D:\\dx\\agents\\mc-agent\\mod-[虚无圣殿]Temple of Nihility",
+    "selfMemory": "D:\\dx\\agents\\mc-agent\\MEMORY.md",
+    "codexKb": "D:\\dx\\agents\\mc-agent\\CODEX_KB.md"
+  },
+  "permissions": ["exec", "fs"],
+  "notes": "从 grp-server-mgmt 迁入开发域（2026-08-05）；曾用路径 D:\\dx\\_Games\\MC\\_agent（junction 保护）"
+}

@@ -1,0 +1,41 @@
+{
+  "_comment": "智能体自我繁衍机制规则（2026-08-09 org-evolution）。项目大到单个智能体难以全盘熟知时，智能体主动申请在自己当前分组下创建子分组+给自己创建子智能体（分身），父智能体升格组长协调。twin-daemon 巡查调用 lib/org-evolution.js 的 check()（挂入 twin-duty-inspector scanDuties）。申请走 inbox/decisions/ 决策机制由分身大脑审批。改动配置即生效（每轮巡查重新读表）。",
+  "enabled": true,
+  "throttleDays": 7,
+  "_throttleDays": "同一智能体两次繁衍申请的最小间隔（天）——防滥用/防骚扰",
+  "maxChildrenPerRepro": 4,
+  "_maxChildrenPerRepro": "单次繁衍最多创建子智能体数（控制爆炸式增长）",
+  "minDivisionPlanLines": 1,
+  "_minDivisionPlanLines": "申请必须附的分工方案最少行数（防空申请）",
+  "decisionTimeoutMs": 1800000,
+  "_decisionTimeoutMs": "分身审批超时（30min）→ 复用决策机制自动标记待用户",
+  "evaluate": {
+    "_what": "自评触发钩子：分身巡查时检查各智能体'项目健康度'，返回是否建议繁衍（项目任务堆积/文件面/覆盖面超出全盘掌控）",
+    "pendingThreshold": 3,
+    "_pendingThreshold": "backlog pending 项 ≥ 该数 → 建议评估繁衍",
+    "projectSurfaceThreshold": 3,
+    "_projectSurfaceThreshold": "identity 引用的独立项目路径 ≥ 该数 → 建议评估繁衍",
+    "privateData": {
+      "_what": "哪些智能体处理隐私/用户偏好数据，繁衍评估走 deepseek 官方渠道",
+      "learning-officer": true,
+      "pm": true,
+      "reviewer": true,
+      "intel-gatherer": true,
+      "channel-manager": true
+    }
+  },
+  "evaluateTargets": {
+    "_what": "纳入自评盯梢的业务智能体（不写全则不评估繁衍）",
+    "mc-dev": true,
+    "novel": true,
+    "copywriting": true,
+    "video-prod": true,
+    "takina": true,
+    "auto-bots": true,
+    "ds-bridge": true,
+    "workspace": true,
+    "security": true,
+    "server-admin": true,
+    "xxsx-gateway": true
+  }
+}

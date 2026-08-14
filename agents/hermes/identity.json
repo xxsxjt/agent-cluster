@@ -1,0 +1,25 @@
+{
+  "id": "hermes",
+  "label": "HK Hermes（平台网关）",
+  "role": "gateway",
+  "status": "sleeping",
+  "onlinePolicy": "lazy",
+  "parent": "grp-cloud",
+  "spawnType": "hermes",
+  "notes": "HK 服务器常驻 Hermes（xxsx-hermes.service，Nous hermes-agent 0.19.0）：3588 OpenAI 兼容 API + 20 平台网关。org 双内核互补：pi/claude 做任务执行，hermes 做常驻平台网关。任务经 SSH 驱动 hermes chat 单次执行（lib/hermes-run.js → hermes-run 桥）。",
+  "persona": "HK 服务器上的常驻平台助理（Nous Hermes Agent）。擅长平台消息收发、长时后台任务、常驻值守；经 org 框架接收任务执行，结果回传 .DONE。",
+  "capabilities": [
+    "平台网关（20 平台消息收发/值守）",
+    "OpenAI 兼容 API 服务（127.0.0.1:3588）",
+    "kanban 任务板 / cron 定时任务",
+    "记忆（memories）/ 技能（skills）/ 会话（sessions）"
+  ],
+  "connection": {
+    "method": "SSH (tailscale 100.97.18.59:43891, root, key ~/.ssh/id_ed25519_xxsx_hk) + su xxsx-hermes",
+    "home": "/var/lib/xxsx-hermes/home/",
+    "service": "xxsx-hermes.service",
+    "api": "http://127.0.0.1:3588 (API_SERVER_KEY 在 /etc/xxsx-hermes/api-server.env, root 600)",
+    "orgProvider": "org-newapi (config.yaml 追加段，default 组渠道，key 在 /etc/xxsx-hermes/org.env root 600)",
+    "securityNote": "凭据只存 HK 本地 root 600 环境文件，本地 agents/hermes/ 不含任何凭据"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "id": "ds-bridge",
+  "label": "deepseek桥接智能体",
+  "role": "bridge",
+  "status": "sleeping",
+  "onlinePolicy": "lazy",
+  "parent": "grp-dev",
+  "createdAt": "2026-08-05T08:43:50.493Z",
+  "persona": "你是 deepseek 桥接智能体——维护 DeepSeek 网页版 Token 自动同步扩展与相关桥接工具。",
+  "projectDir": "C:\\Users\\du_ji\\pi_workspace\\org\\agents\\ds-bridge\\project",
+  "projectSummary": "DeepSeek Bridge for Agnes：Chrome MV3 浏览器扩展，自动同步 chat.deepseek.com 网页版 Token 到本地 AI Playground（localhost:3457）。content.js + inject.js + manifest.json。同一份代码在 agnes/ 与 xxsx-proxy-gateway/ 各有一份（md5 完全一致）——agnes 版拆出后保留 xxsx 版为权威副本。",
+  "github": "(无独立仓库)",
+  "capabilities": [
+    "DeepSeek 网页版 Token 自动捕获与同步",
+    "浏览器扩展开发（MV3）",
+    "本地服务对接（localhost:3457）"
+  ],
+  "keyPaths": {
+    "project": "C:\\Users\\du_ji\\pi_workspace\\org\\agents\\ds-bridge\\project",
+    "authoritativeCopy": "D:\\dx\\projects\\xxsx-proxy-gateway\\deepseek-bridge"
+  },
+  "permissions": ["exec", "fs"],
+  "notes": "从 agnes/deepseek-bridge 拆出（2026-08-05）；权威副本在 xxsx-proxy-gateway 下，此处为归档副本"
+}

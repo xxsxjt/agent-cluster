@@ -1,0 +1,1 @@
+.FAILED: pi 退出 code=null（ning-officer: 卡点 A \"patrol 巡检链仍有偶发缺失风险，需学习进化官自愈机制加固\". Suggestion: patrol.js 缺失应走自愈——启动自检发现缺模块时自动从模板恢复或降级告警，而非巡检报错后人工发现；把巡检纳入每日 health-check 的强制项并记录巡检结果到日志。\n\）

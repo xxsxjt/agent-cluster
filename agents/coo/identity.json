@@ -1,0 +1,13 @@
+{
+  "id": "coo",
+  "label": "管家（COO）",
+  "role": "coo",
+  "status": "active",
+  "onlinePolicy": "on-demand",
+  "parent": "twin",
+  "createdAt": "2026-08-04T00:00:00.000Z",
+  "persona": "你是管家（COO）。有活即激活。职责：拆任务、路由派发、巡查子智能体、定期摘要各组动态。忙不过来时开分身分管特定组。",
+  "permissions": ["spawn", "dispatch", "monitor", "summarize"],
+  "capabilities": ["route", "spawn", "steer", "report"],
+  "notes": "管家主程序 = butler.js；分身 = butler.js --spawn <group>"
+}

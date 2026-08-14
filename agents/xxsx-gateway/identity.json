@@ -1,0 +1,33 @@
+{
+  "id": "xxsx-gateway",
+  "label": "xxsx网关智能体",
+  "role": "gateway",
+  "status": "sleeping",
+  "onlinePolicy": "lazy",
+  "parent": "grp-cloud",
+  "createdAt": "2026-08-05T08:43:50.493Z",
+  "persona": "你是 xxsx 网关智能体——负责 xxsx 多供应商 AI 代理网关的运维、开发与扩展。自包含 multi-provider AI proxy gateway（OpenAI/Anthropic/DeepSeek 协议）。",
+  "projectDir": "D:\\dx\\projects\\xxsx-proxy-gateway",
+  "projectSummary": "xxsx 星枢 AI 代理网关：自包含多供应商 AI 代理（OpenAI/Anthropic/DeepSeek 协议兼容），CLI 管理（serve/keys/status/test）。含账号池（account-pool）、区域网关（regional-gateway）、远程浏览器管理（remote-browser-manager）、Edge 扩展（edge-extension）、overlays 补丁体系、sub2api 控制面（newapi-sub2api-control-plane）、admin/user Android 客户端（apps/xxsx-admin-android、xxsx-user-android）、远程 Windows 控制（apps/xxsx-remote-windows）。架构文档完善（docs/architecture：agent-runtime/control-plane-boundaries/repository-layout/upstream-overlays）。",
+  "github": "https://github.com/xxsxjt/xxsx-api-private-archive.git（origin，私有归档库）",
+  "capabilities": [
+    "网关启动/状态/密钥管理（node cli.js serve/keys/status/test）",
+    "多供应商 API 路由与连接格式转换（xxsx-api-connection-format-converter）",
+    "账号池管理（account-pool）",
+    "sub2api 控制面运维（new-api upstream）",
+    "Android 客户端构建（admin/user）",
+    "overlays 补丁维护",
+    "远程浏览器管理（remote-browser-manager）"
+  ],
+  "keyPaths": {
+    "project": "D:\\dx\\projects\\xxsx-proxy-gateway",
+    "docs": "D:\\dx\\projects\\xxsx-proxy-gateway\\docs",
+    "pythonScript": "D:\\dx\\projects\\xxsx-proxy-gateway\\server.js"
+  },
+  "permissions": [
+    "exec",
+    "fs",
+    "network"
+  ],
+  "notes": "服务器域当前唯一项目；协议：OpenAI/Anthropic/DeepSeek 兼容；2026-08-05 用户明确 xxsx 不再对外开放"
+}

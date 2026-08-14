@@ -1,0 +1,331 @@
+﻿[
+    {
+        "Name":  "360AlbumViewerLogonUpdate",
+        "State":  "Disabled",
+        "Cmd":  "C:\\Program Files (x86)\\360AlbumViewer\\360AlbumViewerUpdate.exe",
+        "Args":  "--silent --src=auto --lnk --data=logon",
+        "Created":  ""
+    },
+    {
+        "Name":  "360AlbumViewerUpdate",
+        "State":  "Disabled",
+        "Cmd":  "C:\\Program Files (x86)\\360AlbumViewer\\360AlbumViewerUpdate.exe",
+        "Args":  "--silent --src=auto --lnk",
+        "Created":  ""
+    },
+    {
+        "Name":  "AgnesAutoPublish - Agnes 午间发布",
+        "State":  "Ready",
+        "Cmd":  "cmd.exe",
+        "Args":  "/c \"node \"C:/Users/du_ji/pi_workspace/org/agents/auto-bots/project/generate-and-publish.js\" --auto --platforms=bilibili\"",
+        "Created":  ""
+    },
+    {
+        "Name":  "AgnesAutoPublish - Agnes 早间发布",
+        "State":  "Ready",
+        "Cmd":  "cmd.exe",
+        "Args":  "/c \"node \"C:/Users/du_ji/pi_workspace/org/agents/auto-bots/project/generate-and-publish.js\" --auto --platforms=douyin,xiaohongshu\"",
+        "Created":  ""
+    },
+    {
+        "Name":  "AutoClaw Launch At Login",
+        "State":  "Disabled",
+        "Cmd":  "\"C:\\Program Files\\AutoClaw\\AutoClaw.exe\"",
+        "Args":  null,
+        "Created":  ""
+    },
+    {
+        "Name":  "CodexLocalShutdown-20260727045842",
+        "State":  "Disabled",
+        "Cmd":  "C:\\Windows\\System32\\shutdown.exe",
+        "Args":  "/s /t 0",
+        "Created":  ""
+    },
+    {
+        "Name":  "ControlCenter",
+        "State":  "Ready",
+        "Cmd":  "by user disabled",
+        "Args":  "-NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -Command \"$svc = Get-Service -Name \u0027GCUBridge\u0027 -ErrorAction SilentlyContinue; if ($svc -and $svc.Status -ne \u0027Running\u0027) { Start-Service -Name \u0027GCUBridge\u0027 }\"",
+        "Created":  ""
+    },
+    {
+        "Name":  "cpu-guardian",
+        "State":  "Ready",
+        "Cmd":  "pythonw.exe",
+        "Args":  "D:\\dx\\workspace\\cpu_guardian\\cpu_guardian.py",
+        "Created":  ""
+    },
+    {
+        "Name":  "CreateExplorerShellUnelevatedTask",
+        "State":  "Ready",
+        "Cmd":  "C:\\Windows\\explorer.exe",
+        "Args":  "/NoUACCheck",
+        "Created":  ""
+    },
+    {
+        "Name":  "IntelSURQC-Upgrade-86621605-2a0b-4128-8ffc-15514c247132",
+        "State":  "Disabled",
+        "Cmd":  "\"C:\\Program Files\\Intel\\SUR\\QUEENCREEK\\Updater\\bin\\IntelSoftwareAssetManagerService.exe\"",
+        "Args":  "--automatic",
+        "Created":  ""
+    },
+    {
+        "Name":  "IntelSURQC-Upgrade-86621605-2a0b-4128-8ffc-15514c247132-Logon",
+        "State":  "Disabled",
+        "Cmd":  "\"C:\\Program Files\\Intel\\SUR\\QUEENCREEK\\Updater\\bin\\IntelSoftwareAssetManagerService.exe\"",
+        "Args":  "--automatic",
+        "Created":  ""
+    },
+    {
+        "Name":  "microsoftedgeupdatetaskmachinecore{141243fe-f6cc-41a8-9303-e3bce1b19fb9}",
+        "State":  "Disabled",
+        "Cmd":  "C:\\Program Files (x86)\\Microsoft\\EdgeUpdate\\MicrosoftEdgeUpdate.exe",
+        "Args":  "/c",
+        "Created":  ""
+    },
+    {
+        "Name":  "microsoftedgeupdatetaskmachineua{5636a37d-6489-44da-97a6-79112e80c24b}",
+        "State":  "Disabled",
+        "Cmd":  "C:\\Program Files (x86)\\Microsoft\\EdgeUpdate\\MicrosoftEdgeUpdate.exe",
+        "Args":  "/ua /installsource scheduler",
+        "Created":  ""
+    },
+    {
+        "Name":  "NahimicTask32",
+        "State":  "Running",
+        "Cmd":  "C:\\Windows\\System32\\..\\SysWOW64\\NahimicSvc32.exe",
+        "Args":  "$(Arg0) $(Arg1) $(Arg2) $(Arg3) $(Arg4) $(Arg5) $(Arg6) $(Arg7)",
+        "Created":  ""
+    },
+    {
+        "Name":  "NahimicTask64",
+        "State":  "Running",
+        "Cmd":  "C:\\Windows\\System32\\.\\NahimicSvc64.exe",
+        "Args":  "$(Arg0) $(Arg1) $(Arg2) $(Arg3) $(Arg4) $(Arg5) $(Arg6) $(Arg7)",
+        "Created":  ""
+    },
+    {
+        "Name":  "NVIDIA App SelfUpdate_{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}",
+        "State":  "Ready",
+        "Cmd":  "\"C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\CEF\\NVIDIA App.exe\"",
+        "Args":  null,
+        "Created":  ""
+    },
+    {
+        "Name":  "OneDrive Reporting Task-S-1-5-21-1226286231-3801032523-985912071-1001",
+        "State":  "Ready",
+        "Cmd":  "%localappdata%\\Microsoft\\OneDrive\\OneDriveStandaloneUpdater.exe",
+        "Args":  "/reporting",
+        "Created":  ""
+    },
+    {
+        "Name":  "OneDrive Standalone Update Task-S-1-5-21-1226286231-3801032523-985912071-1001",
+        "State":  "Ready",
+        "Cmd":  "%localappdata%\\Microsoft\\OneDrive\\OneDriveStandaloneUpdater.exe",
+        "Args":  null,
+        "Created":  ""
+    },
+    {
+        "Name":  "OneDrive Standalone Update Task-S-1-5-21-1226286231-3801032523-985912071-500",
+        "State":  "Ready",
+        "Cmd":  "%localappdata%\\Microsoft\\OneDrive\\OneDriveStandaloneUpdater.exe",
+        "Args":  null,
+        "Created":  ""
+    },
+    {
+        "Name":  "OneDrive Startup Task-S-1-5-21-1226286231-3801032523-985912071-1001",
+        "State":  "Ready",
+        "Cmd":  "C:\\Users\\du_ji\\AppData\\Local\\Microsoft\\OneDrive\\26.134.0713.0004\\OneDriveLauncher.exe",
+        "Args":  "/startInstances",
+        "Created":  ""
+    },
+    {
+        "Name":  "OpenClaw Gateway",
+        "State":  "Disabled",
+        "Cmd":  "C:\\Users\\du_ji\\.openclaw\\gateway.cmd",
+        "Args":  null,
+        "Created":  ""
+    },
+    {
+        "Name":  "opencodex-proxy",
+        "State":  "Ready",
+        "Cmd":  "by user disabled",
+        "Args":  "/b /nologo \"C:\\Users\\du_ji\\.opencodex\\opencodex-service-launcher.vbs\"",
+        "Created":  ""
+    },
+    {
+        "Name":  "Opera GX scheduled assistant Autoupdate 1781421313",
+        "State":  "Ready",
+        "Cmd":  "by user disabled",
+        "Args":  "--scheduledtask --productiscomponent --installdir=\"C:\\Users\\du_ji\\AppData\\Local\\Programs\\Opera GX\\assistant\" --producttype=assistant $(Arg0)",
+        "Created":  ""
+    },
+    {
+        "Name":  "Opera GX scheduled Autoupdate 1781421311",
+        "State":  "Ready",
+        "Cmd":  "by user disabled",
+        "Args":  "--scheduledtask $(Arg0)",
+        "Created":  ""
+    },
+    {
+        "Name":  "org-cloudflared-local",
+        "State":  "Ready",
+        "Cmd":  "powershell.exe",
+        "Args":  "-NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File C:\\Users\\du_ji\\pi_workspace\\org\\scripts\\cloudflared-local.ps1 -Daemon",
+        "Created":  ""
+    },
+    {
+        "Name":  "org-cnb-keepalive",
+        "State":  "Disabled",
+        "Cmd":  "powershell.exe",
+        "Args":  "-NoProfile -ExecutionPolicy Bypass -File C:\\Users\\du_ji\\pi_workspace\\org\\scripts\\cnb-keepalive-local.ps1",
+        "Created":  ""
+    },
+    {
+        "Name":  "org-security-phish-monitor",
+        "State":  "Ready",
+        "Cmd":  "powershell.exe",
+        "Args":  "-NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\Users\\du_ji\\pi_workspace\\org\\scripts\\security-phish-monitor.ps1",
+        "Created":  ""
+    },
+    {
+        "Name":  "pi-butler-daily",
+        "State":  "Ready",
+        "Cmd":  "powershell.exe",
+        "Args":  "-NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -Command \"\u0026 python C:\\Users\\du_ji\\.agents\\skills\\butler-daily\\scripts\\butler_daily.py\"",
+        "Created":  ""
+    },
+    {
+        "Name":  "pi-hub-boot-daemon",
+        "State":  "Disabled",
+        "Cmd":  "powershell.exe",
+        "Args":  "-NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -Command \"Start-Process -FilePath node.exe -ArgumentList C:\\Users\\du_ji\\pi_workspace\\hub\\orchestrator.js,--daemon -WorkingDirectory C:\\Users\\du_ji\\pi_workspace\\hub -WindowStyle Hidden -RedirectStandardOutput C:\\Users\\du_ji\\pi_workspace\\hub\\logs\\daemon-stdout.log -RedirectStandardError C:\\Users\\du_ji\\pi_workspace\\hub\\logs\\daemon-stderr.log\"",
+        "Created":  ""
+    },
+    {
+        "Name":  "pi-hub-butler",
+        "State":  "Disabled",
+        "Cmd":  "powershell.exe",
+        "Args":  "-NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -Command \"Start-Process -FilePath node.exe -ArgumentList C:\\Users\\du_ji\\pi_workspace\\hub\\butler-daemon.js,--interval,20 -WorkingDirectory C:\\Users\\du_ji\\pi_workspace\\hub -WindowStyle Hidden -RedirectStandardOutput C:\\Users\\du_ji\\pi_workspace\\hub\\logs\\butler-stdout.log -RedirectStandardError C:\\Users\\du_ji\\pi_workspace\\hub\\logs\\butler-stderr.log\"",
+        "Created":  ""
+    },
+    {
+        "Name":  "pi-hub-watchdog",
+        "State":  "Disabled",
+        "Cmd":  "powershell.exe",
+        "Args":  "-NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File C:\\Users\\du_ji\\pi_workspace\\hub\\watchdog.ps1",
+        "Created":  ""
+    },
+    {
+        "Name":  "pi-omniroute",
+        "State":  "Ready",
+        "Cmd":  "wscript.exe",
+        "Args":  "C:\\Users\\du_ji\\pi_workspace\\scratch\\omniroute-hidden.vbs",
+        "Created":  ""
+    },
+    {
+        "Name":  "pi-org-backup-supervisor",
+        "State":  "Ready",
+        "Cmd":  "powershell.exe",
+        "Args":  "-NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File C:\\Users\\du_ji\\pi_workspace\\org\\scripts\\backup-supervisor-l1.ps1",
+        "Created":  ""
+    },
+    {
+        "Name":  "pi-org-backup-supervisor-l2",
+        "State":  "Ready",
+        "Cmd":  "powershell.exe",
+        "Args":  "-NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File C:\\Users\\du_ji\\pi_workspace\\org\\scripts\\backup-supervisor-l2.ps1",
+        "Created":  ""
+    },
+    {
+        "Name":  "pi-org-watchdog",
+        "State":  "Ready",
+        "Cmd":  "powershell.exe",
+        "Args":  "-NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File C:\\Users\\du_ji\\pi_workspace\\org\\scripts\\watchdog.ps1",
+        "Created":  ""
+    },
+    {
+        "Name":  "pi-xuwu-boot-butler",
+        "State":  "Ready",
+        "Cmd":  "powershell.exe",
+        "Args":  "-NoProfile -WindowStyle Hidden -Command \"Start-Process -FilePath \"\"C:\\Program Files\\nodejs\\node.exe\"\" -ArgumentList \"\"C:\\Users\\du_ji\\pi_workspace\\org\\butler.js\"\" -WorkingDirectory \"\"C:\\Users\\du_ji\\pi_workspace\\org\"\" -WindowStyle Hidden\"",
+        "Created":  ""
+    },
+    {
+        "Name":  "pi-xuwu-boot-web",
+        "State":  "Ready",
+        "Cmd":  "powershell.exe",
+        "Args":  "-NoProfile -WindowStyle Hidden -Command Start-Process -FilePath \"C:\\Program Files\\nodejs\\node.exe\" -ArgumentList \"C:\\Users\\du_ji\\pi_workspace\\org\\web\\server.js\",\"--port\",\"8787\",\"--host\",\"127.0.0.1\" -WorkingDirectory \"C:\\Users\\du_ji\\pi_workspace\\org\\web\" -WindowStyle Hidden",
+        "Created":  ""
+    },
+    {
+        "Name":  "pi-xuwu-butler-once",
+        "State":  "Ready",
+        "Cmd":  "C:\\Program Files\\nodejs\\node.exe",
+        "Args":  "C:\\Users\\du_ji\\pi_workspace\\org\\butler.js",
+        "Created":  ""
+    },
+    {
+        "Name":  "QihooGetWordSearchFatch",
+        "State":  "Ready",
+        "Cmd":  "C:\\Users\\du_ji\\AppData\\Roaming\\360Safe\\SMLGetWord\\GetWordSearch.exe",
+        "Args":  "/Fatch",
+        "Created":  ""
+    },
+    {
+        "Name":  "RunAsStdUser Task",
+        "State":  "Disabled",
+        "Cmd":  "C:\\yidongyunpan\\mCloud\\mCloud.exe",
+        "Args":  null,
+        "Created":  ""
+    },
+    {
+        "Name":  "THTFAssistiveTouch",
+        "State":  "Ready",
+        "Cmd":  "\"C:\\Program Files (x86)\\THTFServiceWizard\\AssistiveTouch.exe\"",
+        "Args":  "\"C:\\Program Files (x86)\\THTFServiceWizard\"",
+        "Created":  ""
+    },
+    {
+        "Name":  "THTFService",
+        "State":  "Ready",
+        "Cmd":  "\"C:\\Program Files (x86)\\THTFServiceWizard\\THTFServiceWizard.exe\"",
+        "Args":  "\"C:\\Program Files (x86)\\THTFServiceWizard\"",
+        "Created":  ""
+    },
+    {
+        "Name":  "THTFTray",
+        "State":  "Ready",
+        "Cmd":  "\"C:\\Program Files (x86)\\THTFServiceWizard\\THTFTray.exe\"",
+        "Args":  "\"C:\\Program Files (x86)\\THTFServiceWizard\"",
+        "Created":  ""
+    },
+    {
+        "Name":  "WpsUpdateLogonTask_du_ji",
+        "State":  "Disabled",
+        "Cmd":  "C:\\Users\\du_ji\\AppData\\Local\\Kingsoft\\WPS Office\\ksolaunch.exe",
+        "Args":  "/wpsupdate -from=task -source=task",
+        "Created":  ""
+    },
+    {
+        "Name":  "WpsUpdateTask_du_ji",
+        "State":  "Disabled",
+        "Cmd":  "C:\\Users\\du_ji\\AppData\\Local\\Kingsoft\\WPS Office\\ksolaunch.exe",
+        "Args":  "/wpsupdate -from=task -source=task",
+        "Created":  ""
+    },
+    {
+        "Name":  "WpsWakeWnsLogonTask",
+        "State":  "Disabled",
+        "Cmd":  "\"C:\\Users\\du_ji\\AppData\\Local\\Kingsoft\\WPS Office\\\\ksolaunch.exe\"",
+        "Args":  "Run addons/kpluginwrapper/kpluginwrapper.dll run_plugin -plugin_name=kmessagepushcenter -dll_name=kmessagepushcenter wake_wns",
+        "Created":  ""
+    },
+    {
+        "Name":  "WSL Shutdown Cleanup",
+        "State":  "Ready",
+        "Cmd":  "wsl.exe",
+        "Args":  "--shutdown",
+        "Created":  ""
+    }
+]

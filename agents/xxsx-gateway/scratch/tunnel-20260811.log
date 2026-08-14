@@ -1,0 +1,7 @@
+** WARNING: connection is not using a post-quantum key exchange algorithm.
+** This session may be vulnerable to "store now, decrypt later" attacks.
+** The server may need to be upgraded. See https://openssh.com/pq.html
+Read from remote host 103.119.14.102: Connection reset by peer
+client_loop: send disconnect: Connection reset by peer
+Connection to 100.97.18.59 closed by remote host.
+client_loop: send disconnect: Broken pipe

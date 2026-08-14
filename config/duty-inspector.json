@@ -1,0 +1,105 @@
+{
+  "_comment": "分身职责巡检规则（2026-08-09 twin-duty-inspector）。twin-daemon 每 5 分钟巡查调用 lib/twin-duty-inspector.js 的 scanDuties()。与 butler auto-schedule 幂等：定时职责兜底仅当 butler 离线时触发（butler 在线则其每分钟 auto-schedule 为权威，分身不抢）；业务信号/闲置派活是分身独占，按 throttle 节流防骚扰。改动配置即生效（每轮巡查重新读表）。",
+  "enabled": true,
+  "scheduledFallback": true,
+  "butlerWatchdog": {
+    "_what": "管家自杀拉起（2026-08-10 review-loop）：分身巡查检测 butler 主进程死亡 → 自动拉起（node scripts/bootstrap.js start）+ activity [拉起] 留痕。防反复：cooldownMin 窗口内死亡超过 maxRestarts 次 → 记录异常通知，不无限拉起。",
+    "enabled": true,
+    "cooldownMin": 5,
+    "_cooldownMin": "同一窗口（分钟）内统计重复死亡",
+    "maxRestarts": 3,
+    "_maxRestarts": "cooldown 窗口内最多拉起次数，超过则记录异常不再拉",
+    "bootstrapScript": "scripts/bootstrap.js",
+    "_bootstrapScript": "启动脚本：node <bootstrap> start"
+  },
+  "idleThresholdHours": 24,
+  "throttleMinutes": {
+    "_default": 360,
+    "channel-manager": 30,
+    "reviewer": 360,
+    "pm": 360,
+    "intel-gatherer": 360,
+    "learning-officer": 1440
+  },
+  "businessSignals": {
+    "reviewer_newdone": {
+      "_what": "新任务完成/失败批次 → 审核官该验收（on-demand 深验收，区别于每日例会定时验收）",
+      "enabled": true,
+      "newDoneWindowMinutes": 60,
+      "minNewDone": 2
+    },
+    "pm_usersignal": {
+      "_what": "用户新想法/决策/偏好信号 → 产品经理该规划（PRD/任务拆解）",
+      "enabled": true,
+      "signalWindowMinutes": 120
+    },
+    "learning_merge": {
+      "_what": "chat-signals 有新增未合并信号 → 学习进化官该合并沉淀知识库",
+      "enabled": true
+    }
+  },
+  "idleDuties": {
+    "_what": "长期闲置且负有周期性职责的智能体 → 按 cadenceHours 判定应干没干并派活（学习进化官/PM 等非定时调度职责）",
+    "learning-officer": {
+      "cadenceHours": 48
+    },
+    "pm": {
+      "cadenceHours": 168
+    }
+  },
+  "agentRescue": {
+    "_what": "分身监督互救（2026-08-12 agent-rescue-core）：智能体反复失败 → 分身自主决策派救援者诊断（互救链自动，不打扰用户）；救援链耗尽才升级用户。决策留痕 logs/twin-rescue-decisions.jsonl",
+    "healthRescueThrottleMin": 1440,
+    "_healthRescueThrottleMin": "同一批异常智能体健康救援的最小间隔（分钟，默认1天）——防骚扰"
+  },
+  "backlogScan": {
+    "_what": "业务智能体 Backlog 派活（2026-08-09 agent-backlog）：读 config/agent-backlog.json——有 pending 项且超过 staleDays 未推进的智能体 → 派活提醒推进项目（backlog = 业务项目推进，区别于定时职责巡检）。闲置检测从'24h 无 activity'升级为'backlog 有 pending 且未推进'（更准：只有有 pending 项才会被盯）。",
+    "enabled": true,
+    "staleDays": 2,
+    "_staleDays": "pending 项超过 N 天未推进（按最近活动判定）→ 触发派活提醒",
+    "maxDispatchPerScan": 2,
+    "_maxDispatchPerScan": "每轮巡检最多派活几个（防刷屏，一次不铺满全部待推进智能体）",
+    "throttleDays": 1,
+    "_throttleDays": "同智能体派活最小间隔（天）——防骚扰",
+    "targets": {
+      "_what": "哪些业务智能体纳入 backlog 派活盯梢（不写全则不盯）。privateData: true 表示该智能体处理用户偏好/隐私数据，派活走 deepseek 官方渠道",
+      "mc-dev": {
+        "privateData": false
+      },
+      "novel": {
+        "privateData": false
+      },
+      "copywriting": {
+        "privateData": false
+      },
+      "video-prod": {
+        "privateData": false
+      },
+      "takina": {
+        "privateData": false
+      },
+      "auto-bots": {
+        "privateData": false
+      },
+      "ds-bridge": {
+        "privateData": false
+      },
+      "workspace": {
+        "privateData": false
+      },
+      "security": {
+        "privateData": false
+      },
+      "server-admin": {
+        "privateData": false
+      },
+      "xxsx-gateway": {
+        "privateData": false
+      }
+    }
+  },
+  "clearGoalRule": {
+    "_what": "2026-08-09 用户批评后：未明确目标的任务不派（video-prod 被派'跑通管线'后自己折腾 API 的教训）",
+    "rule": "backlog/职责派活前必须明确：①做什么（具体产出）②用什么资源（key/渠道——查 secrets-index）③验收标准；目标含糊 → 不派，改为派'盘点+明确化'任务或记录待用户确认"
+  }
+}

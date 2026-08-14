@@ -1,0 +1,14 @@
+{
+  "_comment": "自动复盘闭环（2026-08-10 review-loop）＋自我审查层（2026-08-11 review-loop-v2）。butler 主循环每 5 分钟调用 lib/review-loop.js check()：①任务完成钩子（DONE→复盘条目 append knowledge/reviews/<date>.jsonl，含 selfReview 四问）②生成例会管理组小会材料（自我审查摘要优先+当日复盘+待验证改进项）。改进项由每日例会 flash 智能体生成（- IMPROVE: 行）落盘 config/improvements.jsonl，下次例会核对（- DONE-IMPROVE: 行）标记 done。改配置即生效（每轮重读表）。",
+  "enabled": true,
+  "provider": "opencode-go",
+  "model": "deepseek-v4-flash",
+  "thinking": "off",
+  "_privacy": "处理用户偏好/隐私数据的智能体（pm/reviewer/intel/learning/channel-manager/twin/coo）复盘路由 deepseek 官方渠道",
+  "privateAgents": ["pm", "reviewer", "intel-gatherer", "learning-officer", "channel-manager", "twin", "coo"],
+  "_exclude": "永不复盘的控制/自动派发类任务前缀（避免复盘自身/例会/验收/巡检）",
+  "excludePrefixes": ["review-loop-", "review-improve-", "daily-meeting-", "review-", "intel-collect-", "improve-", "decision-", "checkpoint-", "duty-", "chan-scan-", "pm-plan-", "learning-merge-"],
+  "dedupeMinSec": 3600,
+  "_dedupeMinSec": "同一任务两次复盘最小间隔（秒）",
+  "materialKeepDays": 7
+}

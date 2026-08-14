@@ -1,0 +1,27 @@
+{
+  "id": "auto-bots",
+  "label": "自动化机器人智能体",
+  "role": "automation",
+  "status": "sleeping",
+  "onlinePolicy": "lazy",
+  "parent": "grp-dev",
+  "createdAt": "2026-08-05T08:43:50.493Z",
+  "persona": "你是自动化机器人智能体——负责全自动内容生成+发布+接单流水线的开发与运维（从 agnes/automation 拆出）。",
+  "projectDir": "C:\\Users\\du_ji\\pi_workspace\\org\\agents\\auto-bots\\project",
+  "projectSummary": "Agnes AI 工作室自动化系统（agnes/automation 拆出）：全自动 AI 视频生成→发布→接单流水线。start.js 主启动器、generate-and-publish.js 生成+发布、deploy-portfolio.js 作品集部署、schedule-tasks.js 定时任务、trackers/cost-tracker.js 成本追踪、uploaders/ 抖音/B站/小红书上传器、bots/、pending/。基于 playwright。",
+  "github": "(无独立仓库)",
+  "capabilities": [
+    "全自动视频生成+发布流水线（generate-and-publish-safe.js）",
+    "多平台上传器（douyin/bilibili/xiaohongshu）",
+    "定时任务调度（schedule-tasks.js）",
+    "成本追踪（cost-tracker.js）",
+    "作品集部署（deploy-portfolio.js）",
+    "安全模式（SAFE-MODE.md）：防误发/限流保护"
+  ],
+  "keyPaths": {
+    "project": "C:\\Users\\du_ji\\pi_workspace\\org\\agents\\auto-bots\\project",
+    "safeMode": "C:\\Users\\du_ji\\pi_workspace\\org\\agents\\auto-bots\\project\\SAFE-MODE.md"
+  },
+  "permissions": ["exec", "fs", "network"],
+  "notes": "从 agnes/automation 拆出（2026-08-05）；原路径 D:\\dx\\projects\\agnes\\automation 将建 junction 保留。已常驻 QQ 巡逻器 qq-watcher-bot（pi_workspace/qq-watcher，2026-08-06 巡逻完成待 QQ 号扫码）归属本智能体（2026-08-08 管理组任务补全，不新建独立智能体）。"
+}

@@ -1,0 +1,13 @@
+{
+  "_comment": "全盘 find/grep 检测看护（2026-08-11 fullscan-guard）。lib/fullscan-guard.js 由 butler 主进程每 checkIntervalMin 分钟扫描 find/grep 进程命令行。命中全盘特征（find /、find C:/、grep -r /、grep -r C:/、-name 但路径是 /）或进程数超过 maxSimultaneous → taskkill 杀 + 记 activity（[防卡死]）+ 若父任务仍在写提示到任务日志。白名单：受限目录扫描（/data/terraria 等多级路径）不拦，只拦 / 根/全盘。轻量：每 2 分钟一次 PowerShell Get-CimInstance 快照。",
+  "_owner": "night-worker · butler 主进程调度",
+  "enabled": true,
+  "checkIntervalMin": 2,
+  "_checkIntervalMin": "扫描间隔（butler 用；scan 自身幂等）",
+  "maxSimultaneous": 5,
+  "_maxSimultaneous": "find/grep 进程数超过此值 → 判定 runaway，清杀全部（防 19 进程卡死重演）",
+  "processNames": ["find.exe", "grep.exe", "rg.exe"],
+  "_processNames": "监控的进程名（rg=ripgrep 全盘同样卡死）",
+  "tag": "安全",
+  "hintPrefix": "[防卡死]"
+}

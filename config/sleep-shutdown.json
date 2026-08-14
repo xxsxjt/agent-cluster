@@ -1,0 +1,6 @@
+{
+  "dryRun": true,
+  "idleMin": 5,
+  "shutdownDelaySec": 60,
+  "_说明": "睡前模式自动关机联动配置（2026-08-11）。dryRun=true 时只打日志不真关机（验证安全）；要启用真机自动关机，把 dryRun 改成 false 即可（= 用户授权）。idleMin=任务队列清空后连续无新活动多少分钟触发；shutdownDelaySec=shutdown /s /t 倒计时秒数（留时间保存）。"
+}

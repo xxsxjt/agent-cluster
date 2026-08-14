@@ -1,0 +1,1 @@
+已完成：实体审核 pending backlog 二次清理（批量审批 54 pending → approve 15 / reject 39 / 留 0，全库 pending 清零；首轮 08-12 已清 474，本轮为清零后再积压的二次清理+策略复核+周期化建议）。产出：/workspace/artifacts/meeting-plan-meeting-sim-2026-08-13-08-清理实体审核-pending-backlog-评估批量审批策略.md

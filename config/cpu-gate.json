@@ -1,0 +1,12 @@
+{
+  "enabled": true,
+  "highThreshold": 70,
+  "criticalThreshold": 90,
+  "tempCriticalC": 90,
+  "lowThreshold": 40,
+  "deferEscalateMin": 30,
+  "logThrottleMs": 300000,
+  "guardianStatePath": "D:/dx/workspace/cpu_guardian/guardian_state.json",
+  "stateStaleMs": 180000,
+  "psutilCmd": "python"
+}
