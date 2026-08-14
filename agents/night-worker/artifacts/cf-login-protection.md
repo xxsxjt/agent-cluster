@@ -94,7 +94,7 @@ rule id: 0f818a90a62e416a843ea4f8165af5cd
 
 > 当前方案 B 已提供"受控访问/人类验证"。若用户希望更严格的 **账号登录后才能访问**，需：
 
-1. 打开 https://dash.cloudflare.com/ 用账号 `Xxjssxjt@gmail.com` 登录。
+1. 打开 https://dash.cloudflare.com/ 用账号 `<cloudflare-account-email>` 登录。
 2. 左侧菜单进入 **Zero Trust → Access**（或访问 `dash.cloudflare.com/…/access/apps`）。
 3. 首次点击 **"Enable Access"**（启用 Cloudflare Zero Trust，Free Plan 可开通，可能需接受条款/绑定方式）。
 4. 在 **Access → Applications** 点 **Add an application → Self-hosted**：

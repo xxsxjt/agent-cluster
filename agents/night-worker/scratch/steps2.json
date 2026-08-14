@@ -1,5 +1,0 @@
-[
-  {"expr": "(() => { const folds=[...document.querySelectorAll('.fold.can, .fold:not(.ph0)')]; let n=0; folds.forEach(f => { if(!f.classList.contains('ph0')){ f.click(); n++; } }); return '展开折叠 ' + n + ' 个'; })()", "wait": 1500},
-  {"expr": "String((() => { const sl=document.querySelector('.pane.left .scroll'); const r=sl.getBoundingClientRect(); return JSON.stringify({label:'组织树',h:Math.round(r.height),sh:sl.scrollHeight,ch:sl.clientHeight,ofy:getComputedStyle(sl).overflowY,treeRows:document.querySelectorAll('.tree .row').length}); })())", "wait": 500},
-  {"expr": "String((() => { const sl=document.querySelector('.pane.left .scroll'); sl.scrollTop=sl.scrollHeight; return '组织树滚动到底: atBottom=' + (sl.scrollTop>=sl.scrollHeight-sl.clientHeight-2); })())"}
-]

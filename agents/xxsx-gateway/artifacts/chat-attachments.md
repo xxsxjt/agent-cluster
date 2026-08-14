@@ -34,7 +34,7 @@
 - 版本 44→**45 / 1.7.11**（含附件 + 对话中心 + UI 重构）
 - 构建 debug 自签名 APK（sha `221e136039cd9290a2a87141247f6cfb4004eeca3d7cd8fd1e9acb8ad0b56ee1`），旧版备份 `/opt/xxsx-api/backups/android-release-v4-20260808-215105/`
 - 更新检查返回 45/1.7.11，下载 sha 与本机一致 ✅
-- **SMTP 邮件已发** 640373758@qq.com（`MAIL_SENT_OK`），更新说明首条即"集群文档改为对话内附件"
+- **SMTP 邮件已发** <qq-email-redacted>（`MAIL_SENT_OK`），更新说明首条即"集群文档改为对话内附件"
 
 ## 五、清理
 

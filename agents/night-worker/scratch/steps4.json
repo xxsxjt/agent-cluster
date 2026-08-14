@@ -1,7 +1,0 @@
-[
-  {"expr": "(() => { localStorage.removeItem('xuwu.org.collapsed'); localStorage.removeItem('xuwu.org.selectedId'); return 'cleared'; })()"},
-  {"expr": "(() => { location.reload(); return 'reload'; })()", "wait": 3500},
-  {"expr": "String((() => { const folds=[...document.querySelectorAll('.tree .fold')]; let n=0; folds.forEach(f=>{ if(f.innerText==='▸'){ f.click(); n++; } }); return JSON.stringify({foldsBefore:folds.length,expanded:n}); })())", "wait": 2000},
-  {"expr": "String((() => { const sl=document.querySelector('.pane.left .scroll'); const r=sl.getBoundingClientRect(); return JSON.stringify({label:'组织树',h:Math.round(r.height),sh:sl.scrollHeight,ch:sl.clientHeight,ofy:getComputedStyle(sl).overflowY,visibleRows:document.querySelectorAll('.tree .row').length}); })())", "wait": 300},
-  {"expr": "String((() => { const sl=document.querySelector('.pane.left .scroll'); sl.scrollTop=sl.scrollHeight; return JSON.stringify({scrolledTo:Math.round(sl.scrollTop),atBottom:sl.scrollTop>=sl.scrollHeight-sl.clientHeight-2}); })())"}
-]

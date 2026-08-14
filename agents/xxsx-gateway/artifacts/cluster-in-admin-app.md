@@ -130,7 +130,7 @@ GET /api/cluster/health ────────────► │  ├─ 全�
 
 ## 八、正式版本发布 + SMTP 邮件通知（2026-08-08 · 任务 cluster-apk-release）
 
-> 用户 2026-08-08 要求把集群能力 APK **发布到 APP 更新通道** + 部署完成后 **SMTP 邮件提醒** 640373758@qq.com。cluster-deploy-finish 只交付了 debug APK，本任务补齐发布+邮件两步。
+> 用户 2026-08-08 要求把集群能力 APK **发布到 APP 更新通道** + 部署完成后 **SMTP 邮件提醒** <qq-email-redacted>。cluster-deploy-finish 只交付了 debug APK，本任务补齐发布+邮件两步。
 
 ### 1. 发布流程调研（不瞎猜）
 
@@ -155,7 +155,7 @@ GET /api/cluster/health ────────────► │  ├─ 全�
 ### 3. SMTP 邮件（已完成，发送成功）
 
 - **方式**：HK 服务器上用 new-api 的 gmail SMTP 配置（smtp.gmail.com:587 STARTTLS + app password）直发
-- **收件人**：640373758@qq.com
+- **收件人**：<qq-email-redacted>
 - **标题**：`xxsx 管理端新版本已发布（智能体集群监控）`
 - **正文**：版本号 1.7.8（versionCode 42）、发布时间、更新内容（集群监控 + 渠道告警通知）、提示在 APP「更多→检查更新」里更新
 - **确认**：smtplib `sendmail` 无异常 → `MAIL_SENT_OK`（SMTP 服务端接受，退出码 0）
@@ -198,7 +198,7 @@ GET /api/cluster/health ────────────► │  ├─ 全�
 1. **版本递增**：`app/build.gradle.kts` `versionCode 42→43`、`versionName 1.7.8→1.7.9`。
 2. **构建**：`./gradlew.bat :app:compileDebugKotlin` ✅（首轮缺 `kotlinx.coroutines.CancellationException` import 已补）→ `:app:assembleDebug` ✅ → `app-debug.apk`（6476638B，aapt badging：versionCode=43 / versionName=1.7.9，sha256 `c1c3748596b6cf1f3e4e82111364392dcaca93e658df56071568563ab30d3c22`）。
 3. **发布到更新通道**（直接 SSH HK，沿用 US→HK 同款流程）：备份旧版 42/1.7.8 → sftp 上传新 APK + UTF-8 manifest（43/1.7.9，更新说明含「任务完成通知 + 集群文档下载」）→ sha256 校验一致 → `mv` 落地 → 验证：`/api/mobile/admin/app-release` 返回 `available:true, version_code:43, version_name:1.7.9`；`/app-release/download` sha256 == 本地。旧版备份 `/opt/xxsx-api/backups/android-release-v2-20260808-174709/`。
-4. **SMTP 邮件**（HK 用 new-api gmail 配置 smtp.gmail.com:587 STARTTLS + app-password 直发）→ **640373758@qq.com**，标题 `xxsx 管理端新版本 v1.7.9 已发布（任务完成通知 + 集群文档下载）`，正文含版本号/更新内容/升级指引，smtplib `sendmail` 无异常 → `MAIL_SENT_OK`。正文不含敏感 token。
+4. **SMTP 邮件**（HK 用 new-api gmail 配置 smtp.gmail.com:587 STARTTLS + app-password 直发）→ **<qq-email-redacted>**，标题 `xxsx 管理端新版本 v1.7.9 已发布（任务完成通知 + 集群文档下载）`，正文含版本号/更新内容/升级指引，smtplib `sendmail` 无异常 → `MAIL_SENT_OK`。正文不含敏感 token。
 5. **更新说明文案**：新增智能体集群任务完成/失败系统通知；服务器页集群卡片新增「集群文档」入口（可浏览并下载/打开产出文档，仅 artifacts/knowledge 非敏感文档）；集群监控与任务状态展示优化。
 6. 交付物：`pi_workspace/output/xxsx-admin-1.7.9.apk`（sha256 `c1c3748596b6cf1f3e4e82111364392dcaca93e658df56071568563ab30d3c22` = 线上 APK）。
 
@@ -275,7 +275,7 @@ GET /api/cluster/health ────────────► │  ├─ 全�
 - 构建 debug 自签名 APK（沿用历史无 release keystore 方式）sha256 `06a69f9ab63879918aab6bddb03f4aad831256442248b9743b90db5aebbf82a9`
 - 上传 HK `/opt/xxsx-api/releases/`，旧版 43/1.7.9 备份 `/opt/xxsx-api/backups/android-release-v3-20260808-203608/`
 - 更新检查 `GET /api/mobile/admin/app-release` 返回 `version_code:44 version_name:1.7.10`，下载 sha256 与本机一致 ✅
-- **SMTP 邮件** → 640373758@qq.com（标题「xxsx 管理端新版本 v1.7.10 已发布（助手页升级为智能体集群对话中心）」），HK gmail SMTP 直发 `MAIL_SENT_OK` ✅
+- **SMTP 邮件** → <qq-email-redacted>（标题「xxsx 管理端新版本 v1.7.10 已发布（助手页升级为智能体集群对话中心）」），HK gmail SMTP 直发 `MAIL_SENT_OK` ✅
 - 更新说明：助手页升级为「智能体集群对话中心」——可在分身（默认）/管家/Hermes 等智能体间切换对话、选择持久记忆、默认打开即分身。
 
 ### 5. 清理
@@ -307,7 +307,7 @@ GET /api/cluster/health ────────────► │  ├─ 全�
 - 验证：`GET /api/mobile/admin/app-release`（临时移动 token，scopes `*`）→ `available:true, version_code:44, version_name:1.7.10, sha256:e5733b2c…, size_bytes:6661629`（模拟 APP 更新检查成功）；`/app-release/download` 下载 sha256 `e5733b2c…` 与本机一致；release_notes 含「Material」与「对话中心」关键词 ✅。测试 token 已吊销（DB count=0）。
 
 ### 4. SMTP 邮件（发送成功）
-- HK 用 new-api gmail 配置（smtp.gmail.com:587 STARTTLS + app-password）直发 → **640373758@qq.com**。
+- HK 用 new-api gmail 配置（smtp.gmail.com:587 STARTTLS + app-password）直发 → **<qq-email-redacted>**。
 - 标题：`xxsx 管理端新版本 v1.7.10 已发布（智能体集群对话中心 + 对话选择 Material 统一）`。
 - 正文：版本号 1.7.10 / versionCode 44、更新内容（集群对话中心 + Material 统一弹窗）、提示在 APP「更多→检查更新」升级。
 - 确认：smtplib `sendmail` 无异常 → `MAIL_SENT_OK`，退出码 0。正文不含敏感 token。
